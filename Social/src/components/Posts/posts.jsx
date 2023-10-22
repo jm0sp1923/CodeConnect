@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { FcBookmark } from "react-icons/fc";
 import "./posts.css";
-import AddPost from "../AddPost/addpost";
 
 function Posts({  idUser, initialIsFollowing, initialLikes, imgPublicacion }) {
   const [isFollowing, setIsFollowing] = useState(initialIsFollowing);
   const [likes, setLikes] = useState(initialLikes);
-  const [imageSrc, setImageSrc] = useState(null);
+  const [imageSrc] = useState(null);
 
   const text = isFollowing ? "Siguiendo" : "Seguir";
   const buttonClassName = isFollowing
@@ -21,24 +20,8 @@ function Posts({  idUser, initialIsFollowing, initialLikes, imgPublicacion }) {
     setLikes(likes + 1);
   };
 
-  const handleImageSelected = (selectedFile) => {
-    if (selectedFile) {
-      const objectURL = URL.createObjectURL(selectedFile);
-      setImageSrc(objectURL);
-    }
-  };
-
-  const handleImageSubmit = (selectedFile) => {
-    if (selectedFile) {
-      const objectURL = URL.createObjectURL(selectedFile);
-      setImageSrc(objectURL);
-    }
-  };
-
-
   return (
     <div className="Posts">
-      <AddPost onImageSelected={handleImageSelected} onImageSubmit={handleImageSubmit} />
       <div className="content">
         <div className="post-container">
           <div className="post">

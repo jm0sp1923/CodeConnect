@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import SendRoundedIcon from '@material-ui/icons/SendRounded';
 import './addpost.css';
 
 const AddPost = ({ onImageSelected, onImageSubmit }) => {
@@ -28,7 +29,7 @@ const AddPost = ({ onImageSelected, onImageSubmit }) => {
       <div className="row">
         <input type="file" id="wfsinputs" onChange={handleFileChange} />
         <input id="wsinputs" placeholder={pHSearch} onChange={handleTextChange} value={text} />
-        <button id="wsbuttons" onClick={handleSubmit}>Subir</button>
+        <button id="wsbuttons" onClick={handleSubmit}><SendRoundedIcon className="icon"/></button>
       </div>
     </div>
   );

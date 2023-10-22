@@ -1,7 +1,8 @@
 .AddPost{
     position: relative;
-    margin: auto;
-    top: -430px;
+    /* margin: auto; */
+    margin-bottom: 50px;
+    top: 80px;
     display: flex;
     justify-content: center;
 }
@@ -68,4 +69,10 @@
     display: block;
     margin-top: 10px;
     font-size: 12px;
+}
+
+.icon{
+  position:relative;
+  top:-5px;
+  color:rgba(228, 93, 245, 0.65);
 }

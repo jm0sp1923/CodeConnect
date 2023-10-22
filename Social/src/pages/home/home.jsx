@@ -1,17 +1,34 @@
 import Top from "../../components/top/top";
-import React from "react";
+import React, {useState} from "react";
 import './home.css'
 import Posts from "../../components/Posts/posts";
+import AddPost from "../../components/AddPost/addpost";
 
 function Home (){
+    const [imageSrc, setImageSrc] = useState(null);
+
+    const handleImageSelected = (selectedFile) => {
+        if (selectedFile) {
+          const objectURL = URL.createObjectURL(selectedFile);
+          setImageSrc(objectURL);
+        }
+      };
+    
+      const handleImageSubmit = (selectedFile) => {
+        if (selectedFile) {
+          const objectURL = URL.createObjectURL(selectedFile);
+          setImageSrc(objectURL);
+        }
+      };
+    
     return(
         <div className="Home">
             <header className="Home-header">
                 <Top></Top>
             </header>
             <div className="Body">
-                <Posts key={1} idUser={"jelty"} initialIsFollowing={true} initialLikes={10} imgPublicacion={"https://random.imagecdn.app/v1/image?width=500&height=150"}></Posts>
-                <Posts key={2} idUser={"benjyfishi"} initialIsFollowing={false} initialLikes={126} imgPublicacion={""}></Posts>
+                <AddPost onImageSelected={handleImageSelected} onImageSubmit={handleImageSubmit} />
+                <Posts key={1} idUser={"jelty"} initialIsFollowing={true} initialLikes={10} imgPublicacion={imageSrc}></Posts>
             </div>
         </div>
     );
