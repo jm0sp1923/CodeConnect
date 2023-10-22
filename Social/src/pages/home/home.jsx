@@ -10,7 +10,7 @@ function Home (){
                 <Top></Top>
             </header>
             <div className="Body">
-                <Posts></Posts>
+                <Posts idUser={"jelty"} initialIsFollowing={false} initialLikes={10}></Posts>
                 <Posts></Posts>
             </div>
         </div>

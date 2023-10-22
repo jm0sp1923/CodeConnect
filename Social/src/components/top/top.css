@@ -50,10 +50,9 @@
     cursor: pointer;
   }
 
-  #sbutton,#loginButton{
+  #sbutton,#loginButton, #crearPost{
     position: relative;
-    left: 15px;
-    padding: 15px;
+    padding: 10px;
     color: white;
     border: 5px;
     background-color:#282c34;
