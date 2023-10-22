@@ -1,0 +1,71 @@
+.AddPost{
+    position: relative;
+    margin: auto;
+    top: -430px;
+    display: flex;
+    justify-content: center;
+}
+
+#wsinputs{
+    padding: 15px;
+    width: 300px;
+    height: 45px;
+    border-radius: 5px;
+    border-width: 0px;
+  }
+
+  #wfsinputs{
+    padding: 15px;
+    right: -20px;
+    width: 300px;
+    height: 45px;
+    border-radius: 5px;
+    border-width: 0px;
+  }
+
+  #wsbuttons{
+    padding: 15px;
+    width: 45px;
+    margin-left: 5px;
+    height: 45px;
+    border-radius: 5px;
+    border-width: 0px;
+  }
+
+
+  #wsbuttons:hover{
+    cursor: pointer;
+  }
+
+  /* #wfsinputs {
+    position: relative;
+    width: 200px;
+} */
+
+#wfsinputs {
+    display: none; /* Oculta el input original */
+}
+
+#wfsinputs {
+    position: relative;
+    width: 200px;
+    top: -10px;
+    left: -20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+}
+
+/* #wfsinputs:hover {
+    background-color: #45a049;
+} */
+
+#wfsinputs {
+    display: block;
+    margin-top: 10px;
+    font-size: 12px;
+}
