@@ -40,16 +40,13 @@
   /* Agrega más estilos según tus necesidades */
 }
 
-#likebutton {
+#likeButton {
   position: relative;
-  padding: 10px;
   color: rgb(243, 23, 23);
-  border: 5px;
-  background-color: #ff0000;
-  border: 0px;
-  font-size: 50px;
-  top: 1px;
-}
+  background-color: #b3b6b7;
+  font-size: 30px;
+  }
+
 
 .card-img-top {
   border-radius: 5%;
@@ -61,7 +58,10 @@
   Estilos userInformacion
   */
 
+
 .tw-followCard-infoUserName {
+  position: relative;
+  left: 20px;
   color: #000000;
   font-family: sans-serif;
   font-size: 18px;

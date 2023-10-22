@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import {FcBookmark} from "react-icons/fc" 
+import { FcBookmark } from "react-icons/fc";
 import "./posts.css";
 import AddPost from "../AddPost/addpost";
 
-function Posts({ idUser, initialIsFollowing, initialLikes, imgPublicacion}) {
+function Posts({  idUser, initialIsFollowing, initialLikes, imgPublicacion }) {
   const [isFollowing, setIsFollowing] = useState(initialIsFollowing);
   const [likes, setLikes] = useState(initialLikes);
   const [imageSrc, setImageSrc] = useState(null);
@@ -17,26 +17,28 @@ function Posts({ idUser, initialIsFollowing, initialLikes, imgPublicacion}) {
     setIsFollowing(!isFollowing);
   };
 
-
-
   const handleLike = () => {
-   
-    setLikes(likes + 1);   
-
+    setLikes(likes + 1);
   };
 
-   const handleImageUpload = (event) => {
-        const selectedFile = event.target.files[0];
-        if (selectedFile) {
-          const objectURL = URL.createObjectURL(selectedFile);
-          setImageSrc(objectURL);
-        }
-      };
+  const handleImageSelected = (selectedFile) => {
+    if (selectedFile) {
+      const objectURL = URL.createObjectURL(selectedFile);
+      setImageSrc(objectURL);
+    }
+  };
+
+  const handleImageSubmit = (selectedFile) => {
+    if (selectedFile) {
+      const objectURL = URL.createObjectURL(selectedFile);
+      setImageSrc(objectURL);
+    }
+  };
 
 
   return (
     <div className="Posts">
-      <AddPost></AddPost>
+      <AddPost onImageSelected={handleImageSelected} onImageSubmit={handleImageSubmit} />
       <div className="content">
         <div className="post-container">
           <div className="post">
@@ -47,6 +49,7 @@ function Posts({ idUser, initialIsFollowing, initialLikes, imgPublicacion}) {
                     className="tw-followCard-avatar"
                     src={`https://unavatar.io/${idUser}`}
                   />
+                  
                 </div>
               </div>
               <div className="col">
@@ -68,8 +71,8 @@ function Posts({ idUser, initialIsFollowing, initialLikes, imgPublicacion}) {
 
             <img
               className="card-img-top"
-              src={imgPublicacion}
-              alt="Publicación"
+              src={imageSrc || imgPublicacion} // Usa `imageSrc` como fuente de imagen, si está definida
+              alt="Post"
             />
 
             <p className="card-text">

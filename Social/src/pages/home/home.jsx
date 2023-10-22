@@ -10,8 +10,8 @@ function Home (){
                 <Top></Top>
             </header>
             <div className="Body">
-                <Posts idUser={"jelty"} initialIsFollowing={false} initialLikes={10} imgPublicacion={"https://random.imagecdn.app/v1/image?width=500&height=150"}></Posts>
-                <Posts idUser={"benjyfishi"} initialIsFollowing={true} initialLikes={126} imgPublicacion={"https://picsum.photos/200/200"}></Posts>
+                <Posts key={1} idUser={"jelty"} initialIsFollowing={true} initialLikes={10} imgPublicacion={"https://random.imagecdn.app/v1/image?width=500&height=150"}></Posts>
+                <Posts key={2} idUser={"benjyfishi"} initialIsFollowing={false} initialLikes={126} imgPublicacion={""}></Posts>
             </div>
         </div>
     );

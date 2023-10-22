@@ -5,7 +5,7 @@ import { FaHome, FaBell, FaUser, FaUserFriends } from 'react-icons/fa';
 function Sidebar({ menuOpen }) {
   return (
     <div className={`sidebar ${menuOpen ? '' : 'hidden'}`}>
-     <a href="/">
+     <a href="/home">
         <FaHome /> Inicio
       </a>
       <a href="#">
