@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import {FcBookmark} from "react-icons/fc" 
 import "./posts.css";
 
-function Posts({ idUser, initialIsFollowing, initialLikes }) {
+function Posts({ idUser, initialIsFollowing, initialLikes, imgPublicacion}) {
   const [isFollowing, setIsFollowing] = useState(initialIsFollowing);
   const [likes, setLikes] = useState(initialLikes);
 
@@ -14,8 +15,12 @@ function Posts({ idUser, initialIsFollowing, initialLikes }) {
     setIsFollowing(!isFollowing);
   };
 
+
+
   const handleLike = () => {
-    setLikes(likes + 1);
+   
+    setLikes(likes + 1);   
+
   };
 
   return (
@@ -23,16 +28,15 @@ function Posts({ idUser, initialIsFollowing, initialLikes }) {
       <div className="post-container">
         <div className="post">
           <article className="tw-followCard row">
-            <div className="col-2">
+            <div className="col-1">
               <div className="user-info">
                 <img
                   className="tw-followCard-avatar"
                   src={`https://unavatar.io/${idUser}`}
-                  alt={`Avatar de ${idUser}`}
                 />
               </div>
             </div>
-            <div className="col-8">
+            <div className="col">
               <div className="tw-followCard-info">
                 <span className="tw-followCard-infoUserName">@{idUser}</span>
               </div>
@@ -51,7 +55,7 @@ function Posts({ idUser, initialIsFollowing, initialLikes }) {
 
           <img
             className="card-img-top"
-            src="https://random.imagecdn.app/500/150"
+            src={imgPublicacion}
             alt="Publicación"
           />
 
@@ -59,9 +63,9 @@ function Posts({ idUser, initialIsFollowing, initialLikes }) {
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Error assumenda voluptates impedit labore blanditiis officiis aperiam consequuntur provident amet delectus quos illum accusantium totam, eos cum harum commodi sed eius!
           </p>
 
-          <button className="btn btn-primary" onClick={handleLike}>
-            Like <span className="badge bg-secondary">{likes}</span>
-          </button>
+            <FcBookmark id="likeButton" onClick={handleLike}></FcBookmark>
+             <span className="badge bg-secondary">{likes}</span>
+          
         </div>
       </div>
     </div>

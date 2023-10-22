@@ -1,122 +1,140 @@
 .App {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    /* Agrega más estilos según tus necesidades */
-  }
-  
-  .content{
-    position: relative;
-    width: 150%; /* Ancho del contenido de las publicaciones */
-    margin-top: 50px;
-    justify-content: center;
-    top: 30px;
-    left: 500px;
-    
-    /* Agrega más estilos según tus necesidades */
-  }
-  
-  .post-container {
-    position: relative;
-    align-content: center;
-    display: flex;
-    
-    justify-content: space-between;
-    width: 80%;
-    /* Agrega más estilos según tus necesidades */
-  }
-  
-  .post {
-    padding-top: 10px; /* Relleno hacia arriba */
-    padding-bottom: 10px; /* Relleno hacia abajo */
-    width: 30%; /* Ancho de cada publicación */
-    padding: 20px;
-    margin: 10px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    justify-content: center;
-    background-color: #B3B6B7;
-    /* Agrega más estilos según tus necesidades */
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  /* Agrega más estilos según tus necesidades */
+}
 
+.content {
+  position: relative;
+  width: 150%; /* Ancho del contenido de las publicaciones */
+  margin-top: 50px;
+  justify-content: center;
+  top: 30px;
+  left: 500px;
 
+  /* Agrega más estilos según tus necesidades */
+}
 
-  /*
+.post-container {
+  position: relative;
+  align-content: center;
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  /* Agrega más estilos según tus necesidades */
+}
+
+.post {
+  width: 30%; /* Ancho de cada publicación */
+  padding: 20px;
+  margin: 10px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  justify-content: center;
+  background-color: #b3b6b7;
+  /* Agrega más estilos según tus necesidades */
+}
+
+#likebutton {
+  position: relative;
+  padding: 10px;
+  color: rgb(243, 23, 23);
+  border: 5px;
+  background-color: #ff0000;
+  border: 0px;
+  font-size: 50px;
+  top: 1px;
+}
+
+.card-img-top {
+  border-radius: 5%;
+  padding-top: 10px; /* Relleno hacia arriba */
+  padding-bottom: 5px; /* Relleno hacia abajo */
+}
+
+/*
   Estilos userInformacion
   */
 
-  .tw-followCard {
-    display: flex;
-    align-items: center;
-    color: #fff;
-    font-size: .8rem;
-    justify-content: space-between;
-  }
-  
-  .tw-followCard-header {
-    display: flex;
-    align-items: center;
-    gap: 4px
-  }
-  
-  .tw-followCard-info {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .tw-followCard-infoUserName {
-    opacity: .6;
-  }
-  
-  .tw-followCard-avatar {
-    width: 48px;
-    height: 48px;
-    border-radius: 1000px;
-  }
-  
-  .tw-followCard-button {
-    cursor: pointer;
-    margin-left: 16px;
-    border: 0;
-    border-radius: 999px;
-    padding: 6px 16px;
-    font-weight: bold;
-    border: 1px solid #000;
-    transition: .3s ease background-color;
-  }
-  
-  .tw-followCard-button:hover {
-    opacity: .8;
-  }
-  
-  .tw-followCard-text {
-    display: block;
-  }
-  
-  .tw-followCard-button.is-following {
-    border: 1px solid #000000;
-    background: transparent;
-    color: #020202;
-    width: 140px;
-  }
-  
-  .tw-followCard-button.is-following:hover {
-    background-color: rgba(255, 0, 0, 0.178);
-    color: red;
-    border: 1px solid red;
-    transition: .3s ease all;
-    opacity: 1;
-  }
-  
-  .tw-followCard-button.is-following:hover .tw-followCard-text {
-    display: none;
-  }
-  
-  .tw-followCard-button.is-following:hover .tw-followCard-stopFollow {
-    display: block;
-  }
-  
-  .tw-followCard-stopFollow {
-    display: none;
-  }
+.tw-followCard-infoUserName {
+  color: #000000;
+  font-family: sans-serif;
+  font-size: 18px;
+}
+
+.tw-followCard {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  font-size: 0.8rem;
+  justify-content: space-between;
+}
+
+.tw-followCard-header {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tw-followCard-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.tw-followCard-infoUserName {
+  opacity: 0.6;
+}
+
+.tw-followCard-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 1000px;
+}
+
+.tw-followCard-button {
+  cursor: pointer;
+  margin-left: 16px;
+  border: 0;
+  border-radius: 999px;
+  padding: 6px 16px;
+  font-weight: bold;
+  border: 1px solid #000;
+  transition: 0.3s ease background-color;
+}
+
+.tw-followCard-button:hover {
+  opacity: 0.8;
+}
+
+.tw-followCard-text {
+  display: block;
+}
+
+.tw-followCard-button.is-following {
+  border: 1px solid #000000;
+  background: transparent;
+  color: #020202;
+  width: 140px;
+}
+
+.tw-followCard-button.is-following:hover {
+  background-color: rgba(255, 0, 0, 0.178);
+  color: red;
+  border: 1px solid red;
+  transition: 0.3s ease all;
+  opacity: 1;
+}
+
+.tw-followCard-button.is-following:hover .tw-followCard-text {
+  display: none;
+}
+
+.tw-followCard-button.is-following:hover .tw-followCard-stopFollow {
+  display: block;
+}
+
+.tw-followCard-stopFollow {
+  display: none;
+}
