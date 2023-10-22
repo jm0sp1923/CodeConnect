@@ -1,0 +1,39 @@
+.App {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    /* Agrega más estilos según tus necesidades */
+  }
+  
+  .content {
+    position: relative;
+    width: 150%; /* Ancho del contenido de las publicaciones */
+    margin-top: 50px;
+    justify-content: center;
+    top: 30px;
+    left: 500px;
+    
+    /* Agrega más estilos según tus necesidades */
+  }
+  
+  .post-container {
+    position: relative;
+    align-content: center;
+    display: flex;
+    
+    justify-content: space-between;
+    width: 80%;
+    /* Agrega más estilos según tus necesidades */
+  }
+  
+  .post {
+    width: 30%; /* Ancho de cada publicación */
+    padding: 20px;
+    margin: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    justify-content: center;
+    background-color: #B3B6B7;
+    /* Agrega más estilos según tus necesidades */
+  }
