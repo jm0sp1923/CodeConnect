@@ -1,0 +1,17 @@
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  p {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  
