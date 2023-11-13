@@ -27,7 +27,7 @@ function Home (){
                 <Top></Top>
             </header>
             <div className="Body">
-                <AddPost onImageSelected={handleImageSelected} onImageSubmit={handleImageSubmit} />
+                <AddPost onImageSelected={handleImageSelected} onImageSubmit={handleImageSubmit}/>
                 <Posts key={1} idUser={"jelty"} initialIsFollowing={true} initialLikes={10} imgPublicacion={imageSrc}></Posts>
             </div>
         </div>
