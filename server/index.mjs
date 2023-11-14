@@ -10,7 +10,7 @@ const db = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "",
-  database: "codeConnect",
+  database: "codeconnect",
 });
 
 db.connect((err) => {
@@ -23,14 +23,14 @@ db.connect((err) => {
 
 app.use(express.json()); // Agrega esta línea para poder analizar el cuerpo de la solicitud en formato JSON
 
-app.post("/registrar", (req, res) => {
+app.post("/registrar", (req, response) => {
   const user = req.body.user;
   const email = req.body.email;
   const contraseña = req.body.contraseña;
 
   db.query(
-    "INSERT INTO usuario (userName,nombre,edad,email,contraseña) VALUES (?,?,?,?,?)",
-    [user, nombre, edad, email, contraseña],
+    "INSERT INTO usuario (user,nombre,edad,email,contraseña) VALUES (?,?,?,?,?)",
+    [user, " ", 0, email, contraseña],
     (err, res) => {
       if (err) {
         console.log(err);

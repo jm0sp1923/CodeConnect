@@ -4,6 +4,7 @@ import Home from './pages/home/home';
 import LoginPage from './pages/loginPage/login';
 import ProfilePage from './pages/profile/profiles';
 import React from 'react';
+import RegistroPage from './pages/registroPage/registro';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" element={<Navigate to="/home"/>} />
         <Route path="/home" element={<Home/>} />
         <Route path='/loginPage' element= {<LoginPage/>}/>
+        <Route path='/registroPage' element={<RegistroPage/>}/>
         <Route path="/profile" element= {<ProfilePage/>}/>
       </Routes>
     </Router>

@@ -14,7 +14,7 @@ function Sidebar({ menuOpen }) {
       <a href="#">
         <FaUserFriends /> Siguiendo
       </a>
-      <a href="/profiles">
+      <a href="profile">
         <FaUser /> Perfil
       </a>
     </div>

@@ -15,15 +15,16 @@ const [email,setEmail] = useState();
 const [contraseña,setContraseña] = useState();
 
 const registrar = ()=>{
-  Axios.post("https://localhost:5500/registrar", {
+  Axios.post("http://localhost:5500/registrar", {
   user: user,
   nombre: " ",
   edad: 0,
   email: email,
-  contraseña: contraseña
+  contraseña: contraseña,
 }).then((response) => {
   console.log(response.data);  // Imprime la respuesta del servidor en la consola
   alert("Usuario creado");
+  console.log("hecho");
 }).catch((error) => {
   console.error("Error al crear usuario:", error);
 });
