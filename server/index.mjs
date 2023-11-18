@@ -5,6 +5,7 @@ import cors from "cors";
 const app = express();
 
 app.use(cors());
+app.use(express.json());
 
 const db = mysql.createConnection({
   host: "localhost",
@@ -21,7 +22,7 @@ db.connect((err) => {
   console.log("Conexión a la base de datos MySQL establecida");
 });
 
-app.use(express.json()); // Agrega esta línea para poder analizar el cuerpo de la solicitud en formato JSON
+ // Agrega esta línea para poder analizar el cuerpo de la solicitud en formato JSON
 
 app.post("/registrar", (req, response) => {
   const user = req.body.user;
@@ -42,10 +43,10 @@ app.post("/registrar", (req, response) => {
 });
 
 app.get("/login", (req, res) => {
-  const userName = req.query.userName;
-  const contraseña = req.query.email;
-  const sql = `SELECT userName, email FROM usuario WHERE userName = "jm0sp" AND email = "jm0sp1923@gmail.com"`;
-  db.query(sql, (err, result) => {
+  const userName = req.query.user;
+  const contraseña = req.query.contraseña;
+  const sql = `SELECT * FROM usuario `;
+  db.query(sql, [userName, contraseña], (err, result) => {
     if (err) {
       console.error("Error en la consulta SELECT: " + err);
       return res.status(500).send("Error en la consulta SELECT");
@@ -53,6 +54,7 @@ app.get("/login", (req, res) => {
     res.send(result);
   });
 });
+
 
 const puerto = 5500;
 app.listen(puerto, () => {

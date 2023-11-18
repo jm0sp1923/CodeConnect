@@ -22,7 +22,7 @@ const registrar = ()=>{
   email: email,
   contraseña: contraseña,
 }).then((response) => {
-  console.log(response.data);  // Imprime la respuesta del servidor en la consola
+  console.log(response.data);  
   alert("Usuario creado");
   console.log("hecho");
 }).catch((error) => {

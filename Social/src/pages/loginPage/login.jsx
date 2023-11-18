@@ -2,15 +2,34 @@ import React from "react";
 import "./login.css";
 import Top from "../../components/top/top";
 import Axio from "axios";
+import { useState } from "react";
 
-const ingresar = () => {
-  //intento consulta
-  //Axio.get("https://localhost:5500/login"),{
-  //usarName:nombre,
-  //}
-};
 
 function LoginPage() {
+
+  const [user,setUser] = useState("");
+  const [contraseña,setContraseña] = useState("");
+  const [usuarios,setUsuarios] = useState([]);
+
+  console.log(user,contraseña);
+
+  const ingresar = () => {
+    Axio.post("http://localhost:5500/login", { user, contraseña })
+      .then((response) => {
+        setUsuarios(response.data);
+        if (response.data.length > 0) {
+          alert("Sesión iniciada correctamente");
+        } else {
+          alert("Credenciales inválidas. Intente de nuevo.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error al iniciar sesión: ", error);
+        alert("Ocurrió un error al iniciar sesión");
+      });
+  };
+
+
   return ( 
     <div className="LoginPage">
       <header>
@@ -33,7 +52,10 @@ function LoginPage() {
                     <form>
                       <div class="form-group">
                         <input
-                          type="email"
+                        onChange={(event)=>{
+                          setUser(event.target.value);
+                        }}
+                          type="text"
                           class="form-control"
                           id="email"
                           placeholder="Ingrese su user"
@@ -42,6 +64,9 @@ function LoginPage() {
 
                       <div class="form-group">
                         <input
+                        onChange={(event)=>{
+                          setContraseña(event.target.value);
+                        }}
                           type="password"
                           class="form-control"
                           id="contraseña"
@@ -156,6 +181,13 @@ function LoginPage() {
 
         </div>
       </div>
+
+      {
+        usuarios.map((val,key)=>{
+          return <div>{val.user}</div>
+        })
+      }
+
     </div>
   );
 }
