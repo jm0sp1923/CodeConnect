@@ -3,6 +3,8 @@ import "./login.css";
 import Top from "../../components/top/top";
 import Axio from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 
 function LoginPage() {
@@ -10,17 +12,28 @@ function LoginPage() {
   const [user,setUser] = useState("");
   const [contraseña,setContraseña] = useState("");
   const [usuarios,setUsuarios] = useState([]);
+  const [sesionIniciada, setSesionIniciada] = useState(false);
+  const navigate = useNavigate(); // Obtén la función navigate desde el hook
+
 
   console.log(user,contraseña);
-
+  const newSesion = sesionIniciada;
   const ingresar = () => {
     Axio.post("http://localhost:5500/login", { user, contraseña })
       .then((response) => {
         setUsuarios(response.data);
         if (response.data.length > 0) {
           alert("Sesión iniciada correctamente");
+          const newSesion = !sesionIniciada;
+          alert(newSesion);
+          if(newSesion){
+            navigate('/home');
+          }
+        
         } else {
           alert("Credenciales inválidas. Intente de nuevo.");
+          
+          alert(newSesion);
         }
       })
       .catch((error) => {
@@ -29,8 +42,10 @@ function LoginPage() {
       });
   };
 
+ 
 
   return ( 
+    
     <div className="LoginPage">
       <header>
         <Top></Top>
@@ -40,17 +55,17 @@ function LoginPage() {
 
 
           {/*<!--Coluumna 2 formulario-->*/}
-          <div class="col vh-100" id="columna2">
-            <div class="position-absolute top-50 start-50 translate-middle">
-              <div class="row">
-                <div class="login text-center">
-                  <div class="body">
-                    <div class="head">
+          <div className="col vh-100" id="columna2">
+            <div className="position-absolute top-50 start-50 translate-middle">
+              <div className="row">
+                <div className="login text-center">
+                  <div className="body">
+                    <div className="head">
                       <h1>Bienvenido de vuelta</h1>
                     </div>
 
                     <form>
-                      <div class="form-group">
+                      <div className="form-group">
                         <input
                         onChange={(event)=>{
                           setUser(event.target.value);
@@ -62,7 +77,7 @@ function LoginPage() {
                         />
                       </div>
 
-                      <div class="form-group">
+                      <div className="form-group">
                         <input
                         onChange={(event)=>{
                           setContraseña(event.target.value);
@@ -73,7 +88,7 @@ function LoginPage() {
                           placeholder="Ingrese su contraseña"
                         />
 
-                        <button class="btn btn-black" id="checkButton"></button>
+                        <button className="btn btn-black" id="checkButton"></button>
                       </div>
 
                       <p>
@@ -81,6 +96,7 @@ function LoginPage() {
                       </p>
 
                       <button
+                        
                         id="btn-ingresar"
                         type="submit"
                         class="btn btn-primary"
@@ -94,9 +110,9 @@ function LoginPage() {
                       <a href="/registroPage">¿No tienes cuenta?</a>
                     </p>
 
-                    <div class="footer">
-                      <div class="icons">
-                        <div class="logoGoogle">
+                    <div className="footer">
+                      <div className="icons">
+                        <div className="logoGoogle">
                           <a href="">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -125,7 +141,7 @@ function LoginPage() {
                           </a>
                         </div>
 
-                        <div class="logoFacebook">
+                        <div className="logoFacebook">
                           <a href="">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -157,7 +173,7 @@ function LoginPage() {
                           </a>
                         </div>
 
-                        <div class="logoApple">
+                        <div className="logoApple">
                           <a href="">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"

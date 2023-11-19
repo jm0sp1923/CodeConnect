@@ -42,11 +42,11 @@ app.post("/registrar", (req, response) => {
   );
 });
 
-app.get("/login", (req, res) => {
-  const userName = req.query.user;
-  const contraseña = req.query.contraseña;
-  const sql = `SELECT * FROM usuario `;
-  db.query(sql, [userName, contraseña], (err, result) => {
+app.post("/login", (req, res) => {
+  const user = req.body.user; 
+  const contraseña = req.body.contraseña;
+  const sql = `SELECT * FROM usuario WHERE user = ? AND contraseña = ?`;
+  db.query(sql, [user, contraseña], (err, result) => {
     if (err) {
       console.error("Error en la consulta SELECT: " + err);
       return res.status(500).send("Error en la consulta SELECT");
@@ -59,4 +59,4 @@ app.get("/login", (req, res) => {
 const puerto = 5500;
 app.listen(puerto, () => {
   console.log(`Server en el puerto ${puerto}`);
-});
+}); 

@@ -38,7 +38,7 @@ const Top = () => {
                 </a>
               </div>
               <div>
-                <a href="loginPage">
+                <a href="login">
                   <button id="loginButton">
                     <BiLogIn />
                   </button>
