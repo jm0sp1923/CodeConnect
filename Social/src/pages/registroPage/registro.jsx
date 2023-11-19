@@ -106,7 +106,7 @@ const registrar = ()=>{
                 {/*iconos de redes sociales*/}
               </div>
               <p>
-                <a href="/loginPage" className="text-black">
+                <a href="/login" className="text-black">
                   ¿Ya Tienes Cuenta?
                 </a>
               </p>
