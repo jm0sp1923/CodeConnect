@@ -36,7 +36,7 @@ app.post("/registrar", (req, response) => {
       if (err) {
         console.log(err);
       } else {
-        res.send("Registrado");
+        response.send("Registrado");
       }
     }
   );
