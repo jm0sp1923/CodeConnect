@@ -12,28 +12,28 @@ function LoginPage() {
   const [user,setUser] = useState("");
   const [contraseña,setContraseña] = useState("");
   const [usuarios,setUsuarios] = useState([]);
-  const [sesionIniciada, setSesionIniciada] = useState(false);
+  const [sesionIniciada, setSesionIniciada] = useState();
   const navigate = useNavigate(); // Obtén la función navigate desde el hook
 
 
   console.log(user,contraseña);
-  const newSesion = sesionIniciada;
+
+
+ 
   const ingresar = () => {
     Axio.post("http://localhost:5500/login", { user, contraseña })
       .then((response) => {
         setUsuarios(response.data);
         if (response.data.length > 0) {
           alert("Sesión iniciada correctamente");
-          const newSesion = !sesionIniciada;
-          alert(newSesion);
-          if(newSesion){
-            navigate('/home');
-          }
-        
+          setSesionIniciada(true);
+          navigate('/home');
+          alert(sesionIniciada);
+      
         } else {
           alert("Credenciales inválidas. Intente de nuevo.");
-          
-          alert(newSesion);
+          setSesionIniciada(false);
+          alert(sesionIniciada);
         }
       })
       .catch((error) => {
@@ -51,7 +51,7 @@ function LoginPage() {
         <Top></Top>
       </header>
       <div className="body">
-        <div class="vh-100 row align-items-start position-relative">
+        <div className="vh-100 row align-items-start position-relative">
 
 
           {/*<!--Coluumna 2 formulario-->*/}
@@ -71,7 +71,7 @@ function LoginPage() {
                           setUser(event.target.value);
                         }}
                           type="text"
-                          class="form-control"
+                          className="form-control"
                           id="email"
                           placeholder="Ingrese su user"
                         />
@@ -83,7 +83,7 @@ function LoginPage() {
                           setContraseña(event.target.value);
                         }}
                           type="password"
-                          class="form-control"
+                          className="form-control"
                           id="contraseña"
                           placeholder="Ingrese su contraseña"
                         />
@@ -99,7 +99,7 @@ function LoginPage() {
                         
                         id="btn-ingresar"
                         type="submit"
-                        class="btn btn-primary"
+                        className="btn btn-primary"
                         onClick={ingresar}
                       >
                         Ingresar
@@ -158,8 +158,8 @@ function LoginPage() {
                                 y2="40.615"
                                 gradientUnits="userSpaceOnUse"
                               >
-                                <stop offset="0" stop-color="#2aa4f4"></stop>
-                                <stop offset="1" stop-color="#007ad9"></stop>
+                                <stop offset="0" stopColor="#2aa4f4"></stop>
+                                <stop offset="1" stopColor="#007ad9"></stop>
                               </linearGradient>
                               <path
                                 fill="url(#Ld6sqrtcxMyckEl6xeDdMa_uLWV5A9vXIPu_gr1)"
