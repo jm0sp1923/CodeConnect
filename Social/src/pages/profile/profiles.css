@@ -1,17 +1,49 @@
 
-.img-fluid {
-    max-width: 100%;
-    height: auto;
-  }
+.profile-container {
+  width: 500px;
+  margin: 0 auto;
+}
+
+.profile-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 4%;
+}
+
+
+.profile-header img {
+  align-items: center;
+  width: 300%;
+  height: 300px;
   
-  h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-  }
+}
+
+
+.profile-header-info {
+  margin-left: 200px;
+}
+
+
+.profile-header-info h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #789e0f;
+}
+
+
+.profile-header-info h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #080808;
   
-  p {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-  }
-  
-  
+}
+
+
+.profile-header-info p {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+}
