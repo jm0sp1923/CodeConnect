@@ -22,7 +22,7 @@ db.connect((err) => {
   console.log("Conexión a la base de datos MySQL establecida");
 });
 
- // Agrega esta línea para poder analizar el cuerpo de la solicitud en formato JSON
+
 
 app.post("/registrar", (req, response) => {
   const user = req.body.user;
@@ -42,8 +42,8 @@ app.post("/registrar", (req, response) => {
   );
 });
 
-app.post("/login", (req, res) => {
-  const user = req.body.user; 
+app.get("/login", (req, res) => {
+  const user = req.body.user;
   const contraseña = req.body.contraseña;
   const sql = `SELECT * FROM usuario WHERE user = ? AND contraseña = ?`;
   db.query(sql, [user, contraseña], (err, result) => {
@@ -53,6 +53,7 @@ app.post("/login", (req, res) => {
     }
     res.send(result);
   });
+
 });
 
 

@@ -9,31 +9,24 @@ import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
 
-  const [user,setUser] = useState("");
-  const [contraseña,setContraseña] = useState("");
-  const [usuarios,setUsuarios] = useState([]);
+  const [user, setUser] = useState("");
+  const [contraseña, setContraseña] = useState("");
+  const [usuarios, setUsuarios] = useState([]);
   const [sesionIniciada, setSesionIniciada] = useState();
   const navigate = useNavigate(); // Obtén la función navigate desde el hook
 
 
-  console.log(user,contraseña);
 
 
- 
   const ingresar = () => {
-    Axio.post("http://localhost:5500/login", { user, contraseña })
+    Axio.get("http://localhost:5500/login", { user, contraseña })
       .then((response) => {
         setUsuarios(response.data);
         if (response.data.length > 0) {
           alert("Sesión iniciada correctamente");
           setSesionIniciada(true);
-          navigate('/home');
-          alert(sesionIniciada);
-      
         } else {
           alert("Credenciales inválidas. Intente de nuevo.");
-          setSesionIniciada(false);
-          alert(sesionIniciada);
         }
       })
       .catch((error) => {
@@ -42,17 +35,28 @@ function LoginPage() {
       });
   };
 
- 
 
-  return ( 
-    
+
+  return (
+
     <div className="LoginPage">
       <header>
         <Top></Top>
       </header>
+    
+      {
+        usuarios.map((val, key) => {
+          return <div key={key}>{val.user}</div>
+        })
+      }
+
+      <div>
+        <p>Nombre: {usuarios.nombre}</p>
+        <p>Email: {usuarios.email}</p>
+      </div>
+
       <div className="body">
         <div className="vh-100 row align-items-start position-relative">
-
 
           {/*<!--Coluumna 2 formulario-->*/}
           <div className="col vh-100" id="columna2">
@@ -67,9 +71,9 @@ function LoginPage() {
                     <form>
                       <div className="form-group">
                         <input
-                        onChange={(event)=>{
-                          setUser(event.target.value);
-                        }}
+                          onChange={(event) => {
+                            setUser(event.target.value);
+                          }}
                           type="text"
                           className="form-control"
                           id="email"
@@ -79,9 +83,9 @@ function LoginPage() {
 
                       <div className="form-group">
                         <input
-                        onChange={(event)=>{
-                          setContraseña(event.target.value);
-                        }}
+                          onChange={(event) => {
+                            setContraseña(event.target.value);
+                          }}
                           type="password"
                           className="form-control"
                           id="contraseña"
@@ -96,7 +100,7 @@ function LoginPage() {
                       </p>
 
                       <button
-                        
+
                         id="btn-ingresar"
                         type="submit"
                         className="btn btn-primary"
@@ -197,13 +201,6 @@ function LoginPage() {
 
         </div>
       </div>
-
-      {
-        usuarios.map((val,key)=>{
-          return <div>{val.user}</div>
-        })
-      }
-
     </div>
   );
 }

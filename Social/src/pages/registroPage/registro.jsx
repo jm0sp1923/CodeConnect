@@ -22,11 +22,9 @@ const registrar = ()=>{
   email: email,
   contraseña: contraseña,
 }).then((response) => {
-  console.log(response.data);  
   alert("Usuario creado");
-  console.log("hecho");
 }).catch((error) => {
-  console.error("Error al crear usuario:", error);
+  alert("Error al crear usuario:", error);
 });
 }
 
