@@ -52,8 +52,26 @@ app.get("/login", (req, res) => {
       return res.status(500).send("Error en la consulta SELECT");
     }
     res.send(result);
-  });
+  })
+});
 
+
+app.put("/changeUserInfo",(req,res)=>{
+    const user = req.body.user;
+    const nombre = req.body.nombre;
+    const edad = req.body.edad;
+    const email = req.body.email;
+    const contraseña = req.body.contraseña;
+    const consulta = 'UPDATE usuario SET user = ?, nombre = ?, edad = ?, email = ?, contraseña = ? WHERE user = ?';
+    const datos = [user, nombre, edad, email, contraseña];
+    db.query(consulta, datos, (error, results) => {
+    if (error){
+      res.status(500).send("Error al actualizar la información del usuario");
+    }else {
+      console.log(req.body.user);
+      res.send(req.body.nombre);
+    }
+  });
 });
 
 

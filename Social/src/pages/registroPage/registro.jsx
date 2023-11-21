@@ -31,7 +31,8 @@ const registrar = ()=>{
   return (
     <div>
       <header>
-        <Top></Top>
+        <Top>   
+        </Top>
       </header>
       <div className="body">
       <div className="registro text-center d-flex align-items-center justify-content-center">
