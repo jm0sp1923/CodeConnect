@@ -42,6 +42,7 @@ app.post("/registrar", (req, response) => {
   );
 });
 
+
 app.post("/login", (req, res) => {
   const {user, contraseña} = req.body; 
   const values = [user, contraseña];
@@ -57,24 +58,21 @@ app.post("/login", (req, res) => {
 
 
 
-app.put("/changeUserInfo",(req,res)=>{
-    const user = req.body.user;
-    const nombre = req.body.nombre;
-    const edad = req.body.edad;
-    const email = req.body.email;
-    const contraseña = req.body.contraseña;
-    const consulta = 'UPDATE usuario SET user = ?, nombre = ?, edad = ?, email = ?, contraseña = ? WHERE user = ?';
-    const datos = [user, nombre, edad, email, contraseña];
-    db.query(consulta, datos, (error, results) => {
-    if (error){
+app.put("/changeUserInfo", (req, res) => {
+  const { user, nombre, edad, email, contraseña } = req.body;
+  const consulta = "UPDATE usuario SET user = ?, nombre=?, edad=?, email=?, contraseña=? WHERE user= ? ";
+  const datos = [user, nombre, edad, email, contraseña, user];
+
+  db.query(consulta, datos, (error, results) => {
+    if (error) {
+      console.log(error);
       res.status(500).send("Error al actualizar la información del usuario");
-    }else {
-      console.log(req.body.user);
+    } else {
+      console.log(user)
       res.send(req.body.nombre);
     }
   });
 });
-
 
 const puerto = 5500;
 app.listen(puerto, () => {

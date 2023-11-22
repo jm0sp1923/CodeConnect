@@ -1,29 +1,32 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axio from "axios";
 import "./profiles.css";
 import Top from "../../components/top/top";
 
 function ProfilePage() {
 
-  const [user,setUser] = useState("");
-  const [nombre,setNombre] = useState("");
-  const [edad,setEdad] = useState("");
-  const [email,setEmail] = useState("");
-  const [contraseña,setContraseña] = useState("");
-  const [avatar,setAvatar] = useState(``);
-
+  const [userInfo, setUserInfo] = useState({
+    user: 'JohnDoe',
+    nombre: '',
+    edad: 0,
+    email: 'johndoe@example.com',
+    contraseña: 'John Doe',
+    avatar: 'https://ui-avatars.com/api/?name=jp'
+  });
 
   const editar = () => {
-    axios.put('http://localhost:5500/changeUserInfo',{user,nombre,edad,email,contraseña,avatar})
-      .then(response => {
-        alert("datos actulizados")
-        console.log("Datos actualizados:", response.data);
-        alert(response.data)
-      })
-      .catch(error => {
-        alert("Ha ocurrido un error" + error)
-        console.error('Error al actualizar los datos del usuario:', error);
-      });
+    axio.put('http://localhost:5500/changeUserInfo',userInfo)
+    .then(response => {
+      alert("Datos actualizados");
+      console.log("Datos actualizados:", response.data);
+    })
+    .catch(error => {
+      alert("Ha ocurrido un error: " + error.message); // Muestra el mensaje de error específico
+      console.error('Error al actualizar los datos del usuario:', error);
+      if (error.response) {
+        console.log("Respuesta del servidor:", error.response.data);
+      }
+    });
   }
 
 
@@ -31,27 +34,11 @@ function ProfilePage() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    switch (name) {
-      case 'user':
-        setUser(value);
-        break;
-      case 'nombre':
-        setNombre(value);
-        break;
-      case 'edad':
-        setEdad(value);
-        break;
-      case 'email':
-        setEmail(value);
-        break;
-      case 'contraseña':
-        setContraseña(value);
-        break;
-      default:
-        break;
-    }
+    setUserInfo({
+      ...userInfo,
+      [name]: value
+    });
   };
-
 
   return (
     <>
@@ -64,22 +51,22 @@ function ProfilePage() {
             <div className="text-center" id="data">
               <div className="infoData">
                 <p><strong>INFORMACION DE USUARIO:</strong>
-                  <input type="text" name="user" placeholder="Nombre de usuario" value={user} onChange={handleChange} />
+                  <input type="text" name="user" placeholder="Nombre de usuario" value={userInfo.user} onChange={handleChange} />
                 </p>
                 <p><strong>Nombre:</strong>
-                  <input type="text" name="nombre" placeholder="Nombre completo" value={nombre} onChange={handleChange} />
+                  <input type="text" name="nombre" placeholder="Nombre completo" value={userInfo.nombre} onChange={handleChange} />
                 </p>
                 <p><strong>Edad:</strong>
-                  <input type="number" name="edad" placeholder="Edad" value={edad} onChange={handleChange} />
+                  <input type="number" name="edad" placeholder="Edad" value={userInfo.edad} onChange={handleChange} />
                 </p>
                 <p><strong>Contraseña:</strong>
-                  <input type="password" name="contraseña" placeholder="Contraseña" value={contraseña} onChange={handleChange} />
+                  <input type="password" name="contraseña" placeholder="Contraseña" value={userInfo.contraseña} onChange={handleChange} />
                 </p>
                 <p><strong>Email:</strong>
-                  <input type="email" name="email" placeholder="Email" value={email} onChange={handleChange} />
+                  <input type="email" name="email" placeholder="Email" value={userInfo.email} onChange={handleChange} />
                 </p>
               </div>
-              <div className="editar">
+              <div className="EditarData">
                 <button onClick={editar}>
                   Editar
                 </button>
@@ -87,7 +74,7 @@ function ProfilePage() {
             </div>
           </div>
           <div className="col-md-4 d-flex justify-content-left">
-            <img className="img-fluid rounded-circle" id='avatar' src={avatar} alt="User Avatar" />
+            <img className="img-fluid rounded-circle" id='avatar' src={userInfo.avatar} alt="User Avatar" />
           </div>
         </div>
       </div>
