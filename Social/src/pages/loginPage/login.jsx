@@ -12,19 +12,20 @@ function LoginPage() {
   const [user, setUser] = useState("");
   const [contraseña, setContraseña] = useState("");
   const [usuarios, setUsuarios] = useState([]);
-  const [sesionIniciada, setSesionIniciada] = useState();
+  
   const navigate = useNavigate(); // Obtén la función navigate desde el hook
 
 
 
 
   const ingresar = () => {
-    Axio.get("http://localhost:5500/login", { user, contraseña })
+    Axio.post("http://localhost:5500/login", { user, contraseña })
       .then((response) => {
         setUsuarios(response.data);
         if (response.data.length > 0) {
+          navigate('/home');
           alert("Sesión iniciada correctamente");
-          setSesionIniciada(true);
+          
         } else {
           alert("Credenciales inválidas. Intente de nuevo.");
         }
@@ -99,7 +100,10 @@ function LoginPage() {
                         <a href="#">¿Olvidó su contraseña?</a>
                       </p>
 
-                      <button
+                      
+                    </form>
+                    
+                    <button
 
                         id="btn-ingresar"
                         type="submit"
@@ -108,7 +112,6 @@ function LoginPage() {
                       >
                         Ingresar
                       </button>
-                    </form>
 
                     <p>
                       <a href="/registroPage">¿No tienes cuenta?</a>

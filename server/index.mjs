@@ -42,18 +42,19 @@ app.post("/registrar", (req, response) => {
   );
 });
 
-app.get("/login", (req, res) => {
-  const user = req.body.user;
-  const contraseña = req.body.contraseña;
+app.post("/login", (req, res) => {
+  const {user, contraseña} = req.body; 
+  const values = [user, contraseña];
   const sql = `SELECT * FROM usuario WHERE user = ? AND contraseña = ?`;
-  db.query(sql, [user, contraseña], (err, result) => {
+  db.query(sql, values, (err, result) => {
     if (err) {
       console.error("Error en la consulta SELECT: " + err);
       return res.status(500).send("Error en la consulta SELECT");
     }
     res.send(result);
-  })
+  });
 });
+
 
 
 app.put("/changeUserInfo",(req,res)=>{
