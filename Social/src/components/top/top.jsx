@@ -4,7 +4,7 @@ import "./top.css";
 import { AiOutlineMenu } from "react-icons/ai";
 import { BiLogIn } from "react-icons/bi";
 import { GoSearch } from "react-icons/go";
-import { FcPlus } from "react-icons/fc";
+
 
 const Top = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -31,11 +31,7 @@ const Top = () => {
                 </div>
               </div>
               <div>
-                <a href="">
-                  <button id="crearPost">
-                    <FcPlus />
-                  </button>
-                </a>
+                
               </div>
               <div>
                 <a href="login">
