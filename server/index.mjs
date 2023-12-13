@@ -1,8 +1,23 @@
 import express from "express";
 import mysql from "mysql";
 import cors from "cors";
+import multer from "multer";
+import path from "path";
+import fs from 'fs';
+
 
 const app = express();
+const upload = multer({dest: 'imgs/'});
+
+//app.use('/imgs', express.static(new URL('imgs', import.meta.url).pathname)); //Obtener URL del modulo y convertirla en ruta de directorio
+
+const currentModuleFile = new URL(import.meta.url);
+const currentModuleDir = path.dirname(currentModuleFile.pathname);
+
+// Configuración para servir archivos estáticos desde la carpeta "imgs"
+const publicPath = path.resolve(currentModuleDir, 'imgs');
+app.use('/imgs', express.static(publicPath));
+
 
 app.use(cors());
 app.use(express.json());
@@ -21,7 +36,6 @@ db.connect((err) => {
   }
   console.log("Conexión a la base de datos MySQL establecida");
 });
-
 
 
 app.post("/registrar", (req, response) => {
@@ -57,7 +71,6 @@ app.post("/login", (req, res) => {
 });
 
 
-
 app.put("/changeUserInfo", (req, res) => {
   const { user, nombre, edad, email, contraseña } = req.body;
   const consulta = "UPDATE usuario SET user = ?, nombre=?, edad=?, email=?, contraseña=? WHERE user= ? ";
@@ -73,6 +86,44 @@ app.put("/changeUserInfo", (req, res) => {
     }
   });
 });
+
+// Ruta para guardar la información post en la base de datos
+app.post("/savePost", upload.single('image'), (req, res) => {
+  const { text } = req.body;
+  const file = req.file;
+
+  if (file && file.filename ) {
+    const allowedTypes = ['image/jpeg', 'image/png'];
+    if (!allowedTypes.includes(file.mimetype)) {
+      console.log('Tipo de archivo no permitido');
+      return res.status(400).send('Tipo de archivo no permitido');
+    }
+
+    const fileExtension = file.mimetype === 'image/jpeg' ? 'jpg' : 'png';
+    const newFilename = `${file.filename}.${fileExtension}`;
+    const destinationPath = path.join('imgs/', newFilename);
+    const imagePath = `/imgs/${destinationPath}`;
+
+    // Mueve el archivo a la carpeta correcta con la extensión en el nombre
+    fs.renameSync(file.path, destinationPath);
+
+    const data = [text, imagePath];
+    db.query("INSERT INTO publicaciones (text, imageUrl) VALUES (?, ?)", data, (err, result) => {
+      if (err) {
+        console.error('Error al insertar en la base de datos:', err);
+        return res.status(500).send('Error al insertar en la base de datos');
+      }
+
+      console.log('Post guardado exitosamente');
+      return res.status(200).send('Post guardado exitosamente');
+    });
+  } else {
+    console.log('Archivo no válido');
+    return res.status(400).send('Archivo no válido');
+  }
+});
+
+
 
 const puerto = 5500;
 app.listen(puerto, () => {
