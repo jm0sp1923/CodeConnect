@@ -3,7 +3,36 @@
   margin-top: 20px; /* Puedes ajustar el valor según tus necesidades */
   display: flex;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.53);
-  border-radius: 5px;
+  background: rgba(109, 107, 109, 0.584);
+  border-radius: 45px;
   padding: 60px;
+  left: 0px;
+  
+}
+
+
+#head {
+  position: absolute;
+  top: 45px;
+  left: 60px;
+  z-index: 3;
+}
+
+#head h1 {
+  color: #fff;
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  font-family: "Montserrat", sans-serif;
+  margin-top: -40px;
+  
+}
+#Logotype{
+  position: absolute;
+  top: -10px;
+  left:   -80px;
+  z-index: -3;
+  width: 0% ;
+  height: 10%;
+
 }

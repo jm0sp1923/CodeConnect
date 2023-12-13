@@ -3,6 +3,7 @@ import { useState } from "react";
  import Axios from "axios";
 import "./registro.css";
 import Top from "../../components/top/top";
+import Logo from '../../assets/img/Logo.png';
 
 
  
@@ -38,8 +39,12 @@ const registrar = ()=>{
       <div className="registro text-center d-flex align-items-center justify-content-center">
         <div className="col vh-100 d-flex flex-column align-items-center">
           <div className="registro text-center">
-            <div className="head">
+            
+
+            
+            <div id="head">
               <h1>Bienvenido</h1>
+            
             </div>
 
             <form>
@@ -87,7 +92,6 @@ const registrar = ()=>{
                   placeholder="Ingrese su contraseña"
                 />
 
-                <button className="btn btn-black" id="checkButton"></button>
               </div>
 
               <button
@@ -104,17 +108,27 @@ const registrar = ()=>{
               <div className="icons">
                 {/*iconos de redes sociales*/}
               </div>
-              <p>
+             
+            </div>
+            <form >
+             <div id="Logotype">
+              <img src={Logo}  />
+             </div>
+         </form>
+          </div>
+          <div>
+          <p>
                 <a href="/login" className="text-black">
                   ¿Ya Tienes Cuenta?
                 </a>
               </p>
-            </div>
+
           </div>
         </div>
       </div>
       </div>
     </div>
+    
   );
 }
 
