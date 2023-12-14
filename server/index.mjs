@@ -11,15 +11,15 @@ const upload = multer({dest: 'imgs/'});
 
 //app.use('/imgs', express.static(new URL('imgs', import.meta.url).pathname)); //Obtener URL del modulo y convertirla en ruta de directorio
 
-const currentModuleFile = new URL(import.meta.url);
-const currentModuleDir = path.dirname(currentModuleFile.pathname);
+// const currentModuleFile = new URL(import.meta.url);
+// const currentModuleDir = path.dirname(currentModuleFile.pathname);
 
-// Configuración para servir archivos estáticos desde la carpeta "imgs"
-const publicPath = path.resolve(currentModuleDir, 'imgs');
-app.use('/imgs', express.static(publicPath));
+// // Configuración para servir archivos estáticos desde la carpeta "imgs"
+// const publicPath = path.resolve(currentModuleDir, 'imgs');
+// app.use('/imgs', express.static(publicPath));
 
 
-app.use(cors());
+app.use(cors());  
 app.use(express.json());
 
 const db = mysql.createConnection({
@@ -102,17 +102,18 @@ app.post("/savePost", upload.single('image'), (req, res) => {
     const fileExtension = file.mimetype === 'image/jpeg' ? 'jpg' : 'png';
     const newFilename = `${file.filename}.${fileExtension}`;
     const destinationPath = path.join('imgs/', newFilename);
-    const imagePath = `/imgs/${destinationPath}`;
+    const imagePath = `${path.basename(destinationPath)}`;
+    const createdAt = new Date().toISOString(); // Obtiene la fecha y hora actual en formato ISO
 
     // Mueve el archivo a la carpeta correcta con la extensión en el nombre
     fs.renameSync(file.path, destinationPath);
 
-    const data = [text, imagePath];
-    db.query("INSERT INTO publicaciones (text, imageUrl) VALUES (?, ?)", data, (err, result) => {
+    const data = [text, imagePath, createdAt];
+    db.query("INSERT INTO publicaciones (text, imageUrl, createdAt) VALUES (?, ?, ?)", data, (err, result) => {
       if (err) {
         console.error('Error al insertar en la base de datos:', err);
         return res.status(500).send('Error al insertar en la base de datos');
-      }
+    }
 
       console.log('Post guardado exitosamente');
       return res.status(200).send('Post guardado exitosamente');
@@ -123,6 +124,26 @@ app.post("/savePost", upload.single('image'), (req, res) => {
   }
 });
 
+
+
+app.get("/getImages", (req, res) => {
+ 
+  const sql = 'SELECT * FROM publicaciones';
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.error("Error en la consulta SELECT: " + err);
+      return res.status(500).send("Error en la consulta SELECT");
+    }
+    res.send(result);
+  });
+});
+
+app.get("/images/:imageName", (req, res) => {
+  const { imageName } = req.params;
+  const currentDirectory = process.cwd();
+  const imagePath = path.join(currentDirectory, "imgs", imageName);
+  res.sendFile(imagePath);
+});
 
 
 const puerto = 5500;

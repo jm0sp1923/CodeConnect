@@ -3,16 +3,17 @@ import { FcBookmark } from "react-icons/fc";
 import "./posts.css";
 //import miImagen from 'http://localhost:5500/server/imgs/3a1739d1b7ddf4b5467807f4d8ebe150.png';
 
-function Posts({ idUser, initialIsFollowing, initialLikes, imgPublicacion }) {
+function Posts({ idUser, initialIsFollowing, initialLikes, imgPublicacion, textPost }) {
   const [isFollowing, setIsFollowing] = useState(initialIsFollowing);
   const [likes, setLikes] = useState(initialLikes);
-  const [imageSrc, setImageSrc] = useState(null);
+  const [imageSrc, setImageSrc] = useState(imgPublicacion);
 
   useEffect(() => {
     // Construye la URL de la imagen basada en la información recibida
-    if (imgPublicacion) {
-      setImageSrc(`http://localhost:5500/server/imgs/${imgPublicacion}`);
+    if (imageSrc) {
+      setImageSrc(`http://localhost:5500/images/${imgPublicacion}`);
       console.log("entro");
+      console.log('ruta: ', imageSrc);
     }
   }, [imageSrc]);
 
@@ -62,16 +63,15 @@ function Posts({ idUser, initialIsFollowing, initialLikes, imgPublicacion }) {
                 </div>
               </div>
             </article>
-
             
               <img
                 className="card-img-top"
-                src={imgPublicacion}
+                src={imageSrc} 
                 alt="Post"
               />
           
 
-            <p className="card-text">hola</p>
+            <p className="card-text">{textPost}</p>
 
             <FcBookmark id="likeButton" onClick={handleLike} />
             <span className="badge bg-secondary">{likes}</span>
