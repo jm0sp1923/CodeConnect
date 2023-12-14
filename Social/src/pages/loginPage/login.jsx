@@ -7,24 +7,20 @@ import { useNavigate } from "react-router-dom";
 import Logo from '../../assets/img/Logo.png';
 
 
-
-
-
-
-
 function LoginPage() {
 
   const [user, setUser] = useState("");
   const [contraseña, setContraseña] = useState("");
   const [usuarios, setUsuarios] = useState([]);
 
-  const navigate = useNavigate(); // Obtén la función navigate desde el hook
+  const navigate = useNavigate(); 
 
   const ingresar = () => {
     Axio.post("http://localhost:5500/login", { user, contraseña })
       .then((response) => {
         setUsuarios(response.data);
         if (response.data.length > 0) {
+          localStorage.setItem('userData', JSON.stringify(response.data));
           navigate("/home");
           alert("Sesión iniciada correctamente");
         } else {
@@ -100,19 +96,19 @@ function LoginPage() {
                         <a href="#">¿Olvidó su contraseña?</a>
                       </p>
 
-                      <button
+                      <p>
+                        <a href="/registroPage">¿No tienes cuenta?</a>
+                      </p>
+                    </form>
+
+                    <button
                         id="btn-ingresar"
                         type="submit"
                         className="btn btn-primary"
                         onClick={ingresar}
                       >
                         Ingresar
-                      </button>
-
-                      <p>
-                        <a href="/registroPage">¿No tienes cuenta?</a>
-                      </p>
-                    </form>
+                      </button> 
                     
                   </div>
                 </div>
