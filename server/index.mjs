@@ -38,7 +38,7 @@ db.connect((err) => {
   console.log("Conexión a la base de datos MySQL establecida");
 });
 
-
+// Query para registrar usuario
 app.post("/registrar", (req, response) => {
   const user = req.body.user;
   const email = req.body.email;
@@ -57,7 +57,7 @@ app.post("/registrar", (req, response) => {
   );
 });
 
-
+//Query para validar informacion del usuario
 app.post("/login", (req, res) => {
   const {user, contraseña} = req.body; 
   const values = [user, contraseña];
@@ -71,7 +71,7 @@ app.post("/login", (req, res) => {
   });
 });
 
-
+//Query para actualizar la informacion del usuario
 app.put("/changeUserInfo", (req, res) => {
   const { user, nombre, edad, email, contraseña } = req.body;
   const consulta = "UPDATE usuario SET user = ?, nombre=?, edad=?, email=?, contraseña=? WHERE user= ? ";
@@ -88,7 +88,7 @@ app.put("/changeUserInfo", (req, res) => {
   });
 });
 
-// Ruta para guardar la información post en la base de datos
+// Query para guardar la información de los post en la base de datos
 app.post("/savePost", upload.single('image'), (req, res) => {
   const { text, id_User } = req.body;
   const file = req.file;
@@ -128,7 +128,7 @@ app.post("/savePost", upload.single('image'), (req, res) => {
 });
 
 
-
+//Query para obtener todas las publicaciones de la database
 app.get("/getImages", (req, res) => {
  
   const sql = 'SELECT * FROM publicaciones';
@@ -140,6 +140,22 @@ app.get("/getImages", (req, res) => {
     res.send(result);
   });
 });
+
+
+//Query para obtener las publicaciones por nombre de usuario
+app.get("/getImagesUser/:user", (req, res) => {
+  const user = req.params.user;
+  const values = [user];
+  const sql = 'SELECT * FROM publicaciones WHERE id_User = ?';
+  db.query(sql, values, (err, result) => {
+    if (err) {
+      console.error("Error en la consulta SELECT: " + err);
+      return res.status(500).send("Error en la consulta SELECT");
+    }
+    res.send(result);
+  });
+});
+
 
 app.get("/images/:imageName", (req, res) => {
   const { imageName } = req.params;
