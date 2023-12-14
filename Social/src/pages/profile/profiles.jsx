@@ -2,23 +2,35 @@ import React, { useState, useEffect } from "react";
 import axio from "axios";
 import "./profiles.css";
 import Top from "../../components/top/top";
+import { useNavigate } from "react-router-dom";
 
 function ProfilePage() {
 
-  const [userInfo, setUserInfo] = useState({
-    user: 'JohnDoe',
-    nombre: '',
-    edad: 0,
-    email: 'johndoe@example.com',
-    contraseña: 'John Doe',
-    avatar: 'https://ui-avatars.com/api/?name=jp'
-  });
+  const navigate = useNavigate();
+  const storedUser = JSON.parse(localStorage.getItem('userData'));
+  const [userInfo, setUserInfo] = useState(storedUser ? storedUser[0] : null);
+
+  const errorInicioSesion = () => {
+    navigate("/login");
+  }
+
+  useEffect(() => {
+    if (userInfo === null) {
+      alert("Inicie sesión primero");
+      errorInicioSesion();
+    }
+  }, [userInfo]);
+
+  if (userInfo === null) {
+    return null; 
+  }
 
   const editar = () => {
     axio.put('http://localhost:5500/changeUserInfo',userInfo)
     .then(response => {
       alert("Datos actualizados");
       console.log("Datos actualizados:", response.data);
+      localStorage.setItem('userData', JSON.stringify(response.data));
     })
     .catch(error => {
       alert("Ha ocurrido un error: " + error.message); // Muestra el mensaje de error específico
@@ -29,8 +41,8 @@ function ProfilePage() {
     });
   }
 
+ 
 
-  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -66,9 +78,10 @@ function ProfilePage() {
                   <input type="email" name="email" placeholder="Email" value={userInfo.email} onChange={handleChange} />
                 </p>
               </div>
-              <div className="EditarData">
+              <div className="EditarData" >
                 <button onClick={editar}>
                   Editar
+                  
                 </button>
               </div>
             </div>
@@ -76,6 +89,10 @@ function ProfilePage() {
           <div className="col-md-4 d-flex justify-content-left">
             <img className="img-fluid rounded-circle" id='avatar' src={userInfo.avatar} alt="User Avatar" />
           </div>
+             <div className="contenedor">
+             <div className="cuadrado"></div>
+          </div>
+
         </div>
       </div>
     </>

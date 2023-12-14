@@ -4,19 +4,27 @@ import "./top.css";
 import { AiOutlineMenu } from "react-icons/ai";
 import { BiLogIn } from "react-icons/bi";
 import { GoSearch } from "react-icons/go";
-import { FcPlus } from "react-icons/fc";
+import { useNavigate } from "react-router-dom";
+
 
 const Top = () => {
+  const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+
+  const cerrarSesion = () =>{
+    localStorage.removeItem('userData');
+    navigate("/login")
+  }
 
   const pHSearch = "Buscar";
   return (
     <>
       
         
+
           <div className="Top">
             <div id="row">
               <button id="sbutton" onClick={toggleMenu}>
@@ -31,15 +39,11 @@ const Top = () => {
                 </div>
               </div>
               <div>
-                <a href="">
-                  <button id="crearPost">
-                    <FcPlus />
-                  </button>
-                </a>
+                
               </div>
               <div>
                 <a href="login">
-                  <button id="loginButton">
+                  <button id="loginButton" onClick={cerrarSesion}>
                     <BiLogIn />
                   </button>
                 </a>
