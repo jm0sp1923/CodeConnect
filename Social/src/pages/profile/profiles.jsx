@@ -66,9 +66,10 @@ function ProfilePage() {
                   <input type="email" name="email" placeholder="Email" value={userInfo.email} onChange={handleChange} />
                 </p>
               </div>
-              <div className="EditarData">
+              <div className="EditarData" >
                 <button onClick={editar}>
                   Editar
+                  
                 </button>
               </div>
             </div>
@@ -76,6 +77,10 @@ function ProfilePage() {
           <div className="col-md-4 d-flex justify-content-left">
             <img className="img-fluid rounded-circle" id='avatar' src={userInfo.avatar} alt="User Avatar" />
           </div>
+             <div className="contenedor">
+             <div className="cuadrado"></div>
+          </div>
+
         </div>
       </div>
     </>
