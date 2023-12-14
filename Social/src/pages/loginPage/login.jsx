@@ -4,7 +4,7 @@ import Top from "../../components/top/top";
 import Axio from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Logo from '../../assets/img/Logo.png';
+import Logoprofile from '../../assets/img/Logoprofile.png';
 
 
 
@@ -126,7 +126,7 @@ function LoginPage() {
              </div>
              
              <div id="Logotype">
-              <img src={Logo}  />
+              <img src={Logoprofile}  />
              </div>
          </form>
           

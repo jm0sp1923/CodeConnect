@@ -92,10 +92,12 @@ h1 {
 }
 
 #Logotype{
+ 
   position: absolute;
-  margin-top: 60px;
-  margin-left: 230px;
-  
+  top: 40px; 
+  left: 150px;
+  z-index: -1; 
+  background-color: transparent; 
 
 }
 

@@ -111,7 +111,7 @@ const registrar = ()=>{
              
             </div>
             <form >
-             <div id="Logotype">
+             <div id="Logotyp">
               <img src={Logo}  />
              </div>
          </form>

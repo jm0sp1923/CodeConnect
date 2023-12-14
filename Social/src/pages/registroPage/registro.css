@@ -1,15 +1,12 @@
 .registro {
   position: relative;
-  margin-top: 20px; /* Puedes ajustar el valor según tus necesidades */
+  margin-top: 20px;
   display: flex;
   justify-content: center;
   background: rgba(109, 107, 109, 0.584);
   border-radius: 45px;
   padding: 60px;
-  left: 0px;
-  
 }
-
 
 #head {
   position: absolute;
@@ -25,14 +22,13 @@
   font-weight: bold;
   font-family: "Montserrat", sans-serif;
   margin-top: -40px;
-  
 }
-#Logotype{
-  position: absolute;
-  top: -10px;
-  left:   -80px;
-  z-index: -3;
-  width: 0% ;
-  height: 10%;
 
+#Logotyp {
+   
+  position: absolute;
+  top: -40px; 
+  right: -105px;
+  z-index: -1; 
+  background-color: transparent; 
 }
