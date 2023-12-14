@@ -25,8 +25,13 @@ const registrar = ()=>{
 }).then((response) => {
   alert("Usuario creado");
 }).catch((error) => {
-  alert("Error al crear usuario:", error);
+  if (error.response.status === 409) {
+    alert("El usuario ya existe");
+  } else {
+    alert("Error al crear usuario:", error);
+  }
 });
+
 }
 
   return (

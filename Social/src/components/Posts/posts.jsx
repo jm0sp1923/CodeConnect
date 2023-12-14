@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { FcBookmark } from "react-icons/fc";
+import { FcLike, FcDislike } from "react-icons/fc";
+import axios from "axios";
 import "./posts.css";
 //import miImagen from 'http://localhost:5500/server/imgs/3a1739d1b7ddf4b5467807f4d8ebe150.png';
 
-function Posts({ idUser, initialIsFollowing, initialLikes, imgPublicacion, textPost }) {
+function Posts({ id,idUser, initialIsFollowing, initialLikes, imgPublicacion,textPost}) {
   const [isFollowing, setIsFollowing] = useState(initialIsFollowing);
   const [likes, setLikes] = useState(initialLikes);
   const [imageSrc, setImageSrc] = useState(imgPublicacion);
   const storedUser = JSON.parse(localStorage.getItem('userData'));
+  const [liked, setLiked] = useState(false);
 
+ 
   useEffect(() => {
     // Construye la URL de la imagen basada en la información recibida
     if (imageSrc) {
       setImageSrc(`http://localhost:5500/images/${imgPublicacion}`);
-      console.log("entro");
-      console.log('ruta: ', imageSrc);
+   
     }
   }, [imageSrc]);
 
@@ -28,7 +30,27 @@ function Posts({ idUser, initialIsFollowing, initialLikes, imgPublicacion, textP
   };
 
   const handleLike = () => {
-    setLikes(likes + 1);
+    if (!liked) {
+      setLikes(likes + 1);
+      axios.post(`http://localhost:5500/like/add`, { postId: id })
+        .then(response => {
+          
+        })
+        .catch(error => {
+         
+        });
+    } else {
+      setLikes(likes - 1);
+      // Llamada a la API para quitar un like en la base de datos
+      axios.post(`http://localhost:5500/like/remove`, { postId: id })
+        .then(response => {
+          
+        })
+        .catch(error => {
+          console.error("Error al eliminar like de la base de datos:", error);
+        });
+    }
+    setLiked(!liked);
   };
 
   return (
@@ -64,17 +86,30 @@ function Posts({ idUser, initialIsFollowing, initialLikes, imgPublicacion, textP
                 </div>
               </div>
             </article>
-            
-              <img
-                className="card-img-top"
-                src={imageSrc} 
-                alt="Post"
-              />
-          
+
+            <img
+              className="card-img-top"
+              src={imageSrc}
+              alt="Post"
+            />
+
 
             <p className="card-text">{textPost}</p>
 
-            <FcBookmark id="likeButton" onClick={handleLike} />
+            {liked ? (
+              <FcDislike
+                id="likeButton"
+                onClick={handleLike}
+                style={{ color: 'red' }}
+              />
+            ) : (
+              <FcLike
+                id="likeButton"
+                onClick={handleLike}
+                style={{ color: 'black' }}
+              />
+            )}
+
             <span className="badge bg-secondary">{likes}</span>
           </div>
         </div>

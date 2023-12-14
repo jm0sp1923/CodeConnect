@@ -7,7 +7,7 @@ import fs from 'fs';
 
 
 const app = express();
-const upload = multer({dest: 'imgs/'});
+const upload = multer({ dest: 'imgs/' });
 
 
 //app.use('/imgs', express.static(new URL('imgs', import.meta.url).pathname)); //Obtener URL del modulo y convertirla en ruta de directorio
@@ -20,7 +20,7 @@ const upload = multer({dest: 'imgs/'});
 // app.use('/imgs', express.static(publicPath));
 
 
-app.use(cors());  
+app.use(cors());
 app.use(express.json());
 
 const db = mysql.createConnection({
@@ -49,9 +49,9 @@ app.post("/registrar", (req, response) => {
     [user, " ", 0, email, contraseña],
     (err, res) => {
       if (err) {
-        console.log(err);
+        response.send(err);
       } else {
-        response.send("Registrado");
+        response.send(true);
       }
     }
   );
@@ -59,7 +59,7 @@ app.post("/registrar", (req, response) => {
 
 //Query para validar informacion del usuario
 app.post("/login", (req, res) => {
-  const {user, contraseña} = req.body; 
+  const { user, contraseña } = req.body;
   const values = [user, contraseña];
   const sql = `SELECT * FROM usuario WHERE user = ? AND contraseña = ?`;
   db.query(sql, values, (err, result) => {
@@ -92,9 +92,9 @@ app.put("/changeUserInfo", (req, res) => {
 app.post("/savePost", upload.single('image'), (req, res) => {
   const { text, id_User } = req.body;
   const file = req.file;
- 
 
-  if (file && file.filename ) {
+
+  if (file && file.filename) {
     const allowedTypes = ['image/jpeg', 'image/png'];
     if (!allowedTypes.includes(file.mimetype)) {
       console.log('Tipo de archivo no permitido');
@@ -106,17 +106,16 @@ app.post("/savePost", upload.single('image'), (req, res) => {
     const destinationPath = path.join('imgs/', newFilename);
     const imagePath = `${path.basename(destinationPath)}`;
     const createdAt = new Date().toISOString(); // Obtiene la fecha y hora actual en formato ISO
-    
+
 
     // Mueve el archivo a la carpeta correcta con la extensión en el nombre
     fs.renameSync(file.path, destinationPath);
-
-    const data = [text, imagePath, createdAt, id_User];
-    db.query("INSERT INTO publicaciones (text, imageUrl, createdAt, id_User) VALUES (?, ?, ?, ?)", data, (err, result) => {
+    const data = [text, imagePath, createdAt, id_User, 0];
+    db.query("INSERT INTO publicaciones (text, imageUrl, createdAt, id_User,likes) VALUES (?, ?, ?, ?,?)", data, (err, result) => {
       if (err) {
         console.error('Error al insertar en la base de datos:', err);
         return res.status(500).send('Error al insertar en la base de datos');
-    }
+      }
 
       console.log('Post guardado exitosamente');
       return res.status(200).send('Post guardado exitosamente');
@@ -130,7 +129,7 @@ app.post("/savePost", upload.single('image'), (req, res) => {
 
 //Query para obtener todas las publicaciones de la database
 app.get("/getImages", (req, res) => {
- 
+
   const sql = 'SELECT * FROM publicaciones';
   db.query(sql, (err, result) => {
     if (err) {
@@ -164,6 +163,30 @@ app.get("/images/:imageName", (req, res) => {
   res.sendFile(imagePath);
 });
 
+
+app.post('/like/add', (req, res) => {
+  const postId = req.body.postId;
+  const sql = 'UPDATE publicaciones SET likes = likes + 1 WHERE id = ?';
+  db.query(sql, [postId], (error, results) => {
+    if (error) {
+      console.error('Error al agregar like:', error);
+      return res.status(500).send('Error al agregar like en la base de datos');
+    }
+    return res.status(200).send("agregado");
+  });
+});
+
+app.post('/like/remove', (req, res) => {
+  const postId = req.body.postId;
+  const sql = 'UPDATE publicaciones SET likes = CASE WHEN likes > 0 THEN likes - 1 ELSE 0 END WHERE id = ?';
+  db.query(sql, [postId], (error, results) => {
+    if (error) {
+      console.error('Error al quitar like:', error);
+      return res.status(500).send('Error al quitar like en la base de datos');
+    }
+    return res.status(200).send('Like eliminado correctamente');
+  });
+});
 
 const puerto = 5500;
 app.listen(puerto, () => {
