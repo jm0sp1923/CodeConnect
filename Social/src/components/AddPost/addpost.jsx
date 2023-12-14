@@ -7,6 +7,7 @@ const AddPost = ({ onImageSelected, onImageSubmit }) => {
   const [imageSrc, setImageSrc] = useState(null);
   const [file, setFile] = useState(null);
   const [text, setText] = useState('');
+  const storedUser = JSON.parse(localStorage.getItem('userData'));
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -24,6 +25,7 @@ const AddPost = ({ onImageSelected, onImageSubmit }) => {
     const formData = new FormData();
       formData.append('text', text);
       formData.append('image', file);
+      formData.append('id_User', storedUser[0].user)
 
 
       

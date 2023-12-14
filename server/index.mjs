@@ -9,6 +9,7 @@ import fs from 'fs';
 const app = express();
 const upload = multer({dest: 'imgs/'});
 
+
 //app.use('/imgs', express.static(new URL('imgs', import.meta.url).pathname)); //Obtener URL del modulo y convertirla en ruta de directorio
 
 // const currentModuleFile = new URL(import.meta.url);
@@ -89,8 +90,9 @@ app.put("/changeUserInfo", (req, res) => {
 
 // Ruta para guardar la información post en la base de datos
 app.post("/savePost", upload.single('image'), (req, res) => {
-  const { text } = req.body;
+  const { text, id_User } = req.body;
   const file = req.file;
+ 
 
   if (file && file.filename ) {
     const allowedTypes = ['image/jpeg', 'image/png'];
@@ -104,12 +106,13 @@ app.post("/savePost", upload.single('image'), (req, res) => {
     const destinationPath = path.join('imgs/', newFilename);
     const imagePath = `${path.basename(destinationPath)}`;
     const createdAt = new Date().toISOString(); // Obtiene la fecha y hora actual en formato ISO
+    
 
     // Mueve el archivo a la carpeta correcta con la extensión en el nombre
     fs.renameSync(file.path, destinationPath);
 
-    const data = [text, imagePath, createdAt];
-    db.query("INSERT INTO publicaciones (text, imageUrl, createdAt) VALUES (?, ?, ?)", data, (err, result) => {
+    const data = [text, imagePath, createdAt, id_User];
+    db.query("INSERT INTO publicaciones (text, imageUrl, createdAt, id_User) VALUES (?, ?, ?, ?)", data, (err, result) => {
       if (err) {
         console.error('Error al insertar en la base de datos:', err);
         return res.status(500).send('Error al insertar en la base de datos');

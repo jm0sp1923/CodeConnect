@@ -8,6 +8,7 @@ function Home (){
     const [imageSrc, setImageSrc] = useState(null);
     const [post, setPost] = useState([]);
     const [cargando, setCargando] = useState(true);
+    const storedUser = JSON.parse(localStorage.getItem('userData'));
 
     useEffect(() => {
       fetch('http://localhost:5500/getImages') // Asegúrate de que el puerto sea correcto
@@ -56,7 +57,7 @@ function Home (){
             {cargando ? <p>Cargando publicaciones...</p> : (
                 <ul>
                   {sortedPosts.map((posts, index) => (
-                    <Posts key={posts.id} idUser={"jelty"} initialIsFollowing={false} initialLikes={10} imgPublicacion={posts.imageUrl} textPost={posts.text}></Posts>
+                    <Posts key={posts.id} idUser={posts.id_User} initialIsFollowing={false} initialLikes={10} imgPublicacion={posts.imageUrl} textPost={posts.text}></Posts>
                     
                   ))}
                 </ul>

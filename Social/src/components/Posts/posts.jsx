@@ -7,6 +7,7 @@ function Posts({ idUser, initialIsFollowing, initialLikes, imgPublicacion, textP
   const [isFollowing, setIsFollowing] = useState(initialIsFollowing);
   const [likes, setLikes] = useState(initialLikes);
   const [imageSrc, setImageSrc] = useState(imgPublicacion);
+  const storedUser = JSON.parse(localStorage.getItem('userData'));
 
   useEffect(() => {
     // Construye la URL de la imagen basada en la información recibida
@@ -40,8 +41,8 @@ function Posts({ idUser, initialIsFollowing, initialLikes, imgPublicacion, textP
                 <div className="user-info">
                   <img
                     className="tw-followCard-avatar"
-                    src={`https://unavatar.io/${idUser}`}
-                    alt={`Avatar de ${idUser}`}
+                    src={`https://ui-avatars.com/api/${storedUser[0].user}`}
+                    alt={`Avatar de ${storedUser[0].user}`}
                   />
                 </div>
               </div>
