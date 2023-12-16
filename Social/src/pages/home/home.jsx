@@ -51,7 +51,7 @@ function Home (){
     useEffect(() => {
       // Inicialmente, carga todas las publicaciones
       fetchAllPosts();
-      //fetchPostsByUser();
+      
       
       
     }, []);
@@ -89,6 +89,7 @@ function Home (){
 
 
       const topActions = { onSearch: handleSearch };
+      
 
     return(
         <div className="Home">
@@ -100,7 +101,7 @@ function Home (){
             {cargando ? <p>Cargando publicaciones...</p> : (
                 <ul>
                   {sortedPosts.map((posts, index) => (
-                    <Posts key={posts.id} idUser={posts.id_User} initialIsFollowing={false} initialLikes={10} imgPublicacion={posts.imageUrl} textPost={posts.text}></Posts>
+                    <Posts idPost={posts.id} idUser={posts.id_User} initialIsFollowing={false} initialLikes={10} imgPublicacion={posts.imageUrl} textPost={posts.text} ></Posts>
                     
                   ))}
                 </ul>

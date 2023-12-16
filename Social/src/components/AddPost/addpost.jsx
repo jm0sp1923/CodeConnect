@@ -25,7 +25,7 @@ const AddPost = ({ onImageSelected, onImageSubmit }) => {
     const formData = new FormData();
       formData.append('text', text);
       formData.append('image', file);
-      formData.append('id_User', storedUser[0].user)
+      formData.append('id_User', storedUser[0].user);
 
 
       

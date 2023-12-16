@@ -10,10 +10,11 @@ import Logo from '../../assets/img/Logo.png';
 
 function RegistroPage() {
 
-
 const [user,setUser] = useState();
 const [email,setEmail] = useState();
 const [contraseña,setContraseña] = useState();
+
+
 
 const registrar = ()=>{
   Axios.post("http://localhost:5500/registrar", {
@@ -28,13 +29,10 @@ const registrar = ()=>{
   alert("Error al crear usuario:", error);
 });
 }
-
+  
   return (
     <div>
-      <header>
-        <Top>   
-        </Top>
-      </header>
+      
       <div className="body">
       <div className="registro text-center d-flex align-items-center justify-content-center">
         <div className="col vh-100 d-flex flex-column align-items-center">
@@ -96,6 +94,7 @@ const registrar = ()=>{
 
               <button
                 onClick={registrar}
+               
                 id="btn-ingresar"
                 type="submit"
                 className="btn btn-primary"

@@ -26,14 +26,17 @@
   display: flex;
   justify-content: center;
   width: 100%;
+ 
   /* Agrega más estilos según tus necesidades */
 }
 
 .post {
-  width: 35%; /* Ancho de cada publicación */
+  width: 40%;
+  height: auto; /* Ancho de cada publicación */
   padding: 20px;
-  margin: 10px;
+  margin: 15px;
   border: 1px solid #ddd;
+  margin-left: -100px;
   border-radius: 10px;
   justify-content: center;
   background-color: #b3b6b7;
@@ -45,14 +48,84 @@
   color: rgb(243, 23, 23);
   background-color: #b3b6b7;
   font-size: 30px;
-  }
+  top: 1px;
+}
 
+#commentButton{
+  position: relative;
+  font-size: 22px;
+  margin-left: 10px;
+  top: 1px;
+} 
+
+
+#enviarButton{
+  position: relative;
+  top: 9px;
+}
+
+
+.show-comments{
+  max-height: 150px; 
+  overflow: hidden;
+  overflow-y: auto;
+
+}
+
+.h5,.p{
+  margin-left: 10px;
+   display: inline-flex;
+  margin-top: 5px;
+}
+
+.p {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 390px;
+}
+
+.comment{
+  position: relative;
+  background-color: white;
+  margin: 10px;
+  border-radius:10px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  height: auto;
+  max-width: 450px;
+  overflow: hidden;
+  display: flex;
+  }
 
 .card-img-top {
   border-radius: 5%;
   padding-top: 10px; /* Relleno hacia arriba */
   padding-bottom: 5px; /* Relleno hacia abajo */
 }
+
+
+#comentBox{
+  width: 300px;
+  position: relative;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  font-size: 15px;
+  height: 30px;
+  
+  }
+
+  #enviarButton{
+  position: relative;
+  top: 0px;
+  left: 2px;  
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  font-size: 15px;
+  height: 30px;
+  }
+
 
 /*
   Estilos userInformacion
