@@ -1,6 +1,6 @@
 import React from "react";
 import "./login.css";
-import Top from "../../components/top/top";
+
 import Axio from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -35,9 +35,7 @@ function LoginPage() {
 
   return (
     <div className="LoginPage">
-      <header>
-        <Top></Top>
-      </header>
+      
 
       {
         usuarios.map((val, key) => {
@@ -45,11 +43,7 @@ function LoginPage() {
         })
       }
 
-      <div>
-        <p>Nombre: {usuarios.nombre}</p>
-        <p>Email: {usuarios.email}</p>
-      </div>
-
+     
       <div className="body">
         <div className="vh-100 row align-items-start position-relative">
 
@@ -71,7 +65,7 @@ function LoginPage() {
                           }}
                           type="text"
                           className="form-control"
-                          id="email"
+                          id="email-login"
                           placeholder="Ingrese su usuario"
                         />
                       </div>
@@ -93,14 +87,10 @@ function LoginPage() {
                       </div>
 
                       <p>
-                        <a href="#">¿Olvidó su contraseña?</a>
-                      </p>
-
-                      <p>
                         <a href="/registroPage">¿No tienes cuenta?</a>
                       </p>
+                    
                     </form>
-
                     <button
                         id="btn-ingresar"
                         type="submit"
@@ -110,6 +100,9 @@ function LoginPage() {
                         Ingresar
                       </button> 
                     
+                     
+
+                   
                   </div>
                 </div>
               </div>

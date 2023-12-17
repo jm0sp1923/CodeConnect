@@ -41,8 +41,10 @@ app.post("/registrar", (req, response) => {
     (err, res) => {
       if (err) {
         console.log(err);
+        response.send(err);
       } else {
-        response.send("Registrado");
+        console.log("Registrado");
+        response.send(true);
       }
     }
   );
@@ -187,14 +189,15 @@ app.get("/fotoPerfil", (req, res) => {
   });
 });
 
-//Query para registrar likes and comments 
+//Query para registrar comments 
 app.post("/datePost", async (req, response) => {
   try {
-    const { id_post, id_user, comments } = req.body;
-    const data = [id_post, id_user, comments];
+    const { id_post, id_user, comments, likes } = req.body;
+    const createdAt = new Date().toISOString();
+    const data = [id_post, id_user, comments, likes, createdAt];
 
     await db.query(
-      "INSERT INTO datepost (id_post, id_user, comments) VALUES (?,?,?)",
+      "INSERT INTO datepost (id_post, id_user, comments, likes,  createdAt) VALUES (?,?,?,?,?)",
       data
     );
 
@@ -204,6 +207,8 @@ app.post("/datePost", async (req, response) => {
     response.status(500).send("Error interno del servidor");
   }
 });
+
+
 
 //Query para consulta de los ID de las publicaciones
 app.get("/getIdPost", (req, res) => {
@@ -228,8 +233,8 @@ app.get("/getCommentPost/:id_post", (req, res) => {
   
   const values = [id_post];
   const sql = `SELECT datepost.id_user, datepost.comments
-                FROM datepost WHERE id_post =?
-                
+                FROM datepost WHERE id_post =? AND comments IS NOT NULL
+                ORDER BY createdAt DESC 
                 `;
   db.query(sql, values, (err, result) => {
     if (err) {
@@ -239,6 +244,32 @@ app.get("/getCommentPost/:id_post", (req, res) => {
     res.send(result);
   });
 });
+
+
+app.post('/like/add/:id_post', (req, res) => {
+  const id_post = req.params;
+  const sql = 'UPDATE datepost SET likes = likes + 1 WHERE id_post = ?';
+  db.query(sql, [id_post], (error, results) => {
+    if (error) {
+      console.error('Error al agregar like:', error);
+      return res.status(500).send('Error al agregar like en la base de datos');
+    }
+    return res.status(200).send("agregado");
+  });
+});
+
+app.post('/like/remove/:id_post', (req, res) => {
+  const id_post = req.params;
+  const sql = 'UPDATE datepost SET likes = CASE WHEN likes > 0 THEN likes - 1 ELSE 0 END WHERE id_post = ?';
+  db.query(sql, [id_post], (error, results) => {
+    if (error) {
+      console.error('Error al quitar like:', error);
+      return res.status(500).send('Error al quitar like en la base de datos');
+    }
+    return res.status(200).send('Like eliminado correctamente');
+  });
+});
+
 
 
 const puerto = 5500;

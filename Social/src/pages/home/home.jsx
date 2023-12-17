@@ -3,13 +3,33 @@ import React, {useState, useEffect} from "react";
 import './home.css'
 import Posts from "../../components/Posts/posts";
 import AddPost from "../../components/AddPost/addpost";
+import { useNavigate } from "react-router-dom";
 
 
 function Home (){
     const [imageSrc, setImageSrc] = useState(null);
     const [post, setPost] = useState([]);
     const [cargando, setCargando] = useState(true);
-   
+    
+
+    
+    const navigate = useNavigate();
+    const storedUser = JSON.parse(localStorage.getItem('userData'));
+    const [userInfo, setUserInfo] = useState(storedUser ? storedUser[0] : null);
+
+    const errorInicioSesion = () => {
+      navigate("/login");
+    }
+
+    useEffect(() => {
+      if (userInfo === null) {
+        alert("Inicie sesión primero");
+        errorInicioSesion();
+      } 
+    }, [userInfo]);
+
+
+
 
     const fetchAllPosts = () => {
       fetch('http://localhost:5500/getImages') // Asegúrate de que el puerto sea correcto
@@ -101,7 +121,7 @@ function Home (){
             {cargando ? <p>Cargando publicaciones...</p> : (
                 <ul>
                   {sortedPosts.map((posts, index) => (
-                    <Posts idPost={posts.id} idUser={posts.id_User} initialIsFollowing={false} initialLikes={10} imgPublicacion={posts.imageUrl} textPost={posts.text} ></Posts>
+                    <Posts idPost={posts.id} idUser={posts.id_User} initialIsFollowing={false} initialLikes={posts.likes} imgPublicacion={posts.imageUrl} textPost={posts.text} ></Posts>
                     
                   ))}
                 </ul>

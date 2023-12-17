@@ -8,12 +8,7 @@ function Sidebar({ menuOpen }) {
      <a href="home">
         <FaHome /> Inicio
       </a>
-      <a href="#">
-        <FaBell /> Notificaciones
-      </a>
-      <a href="#">
-        <FaUserFriends /> Siguiendo
-      </a>
+     
       <a href="profile">
         <FaUser /> Perfil
       </a>

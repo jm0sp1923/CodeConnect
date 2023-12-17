@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { FcBookmark } from "react-icons/fc";
 import { FaRegComment } from "react-icons/fa";
+import { FcLike, FcDislike } from "react-icons/fc";
 import Axios from 'axios';
 
 import "./posts.css";
-//import miImagen from 'http://localhost:5500/server/imgs/3a1739d1b7ddf4b5467807f4d8ebe150.png';
 
 function Posts({idPost ,idUser, initialIsFollowing, initialLikes, imgPublicacion, textPost, ImagenPerfil }) {
-  const [isFollowing, setIsFollowing] = useState(initialIsFollowing);
+ 
   const [likes, setLikes] = useState(initialLikes);
   const [imageSrc, setImageSrc] = useState(imgPublicacion);
   const [fotoPerfil, setFotoPerfil] = useState(idUser);
@@ -15,6 +15,7 @@ function Posts({idPost ,idUser, initialIsFollowing, initialLikes, imgPublicacion
   const [showCommentBox, setShowCommentBox] = useState(false);
   const [currentComment, setCurrentComment] = useState("");
   const storedUser = JSON.parse(localStorage.getItem('userData'));
+  const [liked, setLiked] = useState(false);
 
 
 
@@ -31,77 +32,84 @@ function Posts({idPost ,idUser, initialIsFollowing, initialLikes, imgPublicacion
      
     }  
     
-    
-    const fetchComments = () => {
-      fetch(`http://localhost:5500/getCommentPost/${idPost}`)
-        .then(response => response.json())
-        .then(data => {
-          console.log("Comentarios recibidos:", data); // Agrega esto para verificar la respuesta
-          if (Array.isArray(data)) { // Comprueba si la respuesta es un arreglo
-            setComments(data);
-          } else {
-            console.error("La respuesta no es un arreglo:", data);
-          }
-        })
-        .catch(error => {
-          console.error('Error al obtener datos:', error);
-        });
-    };
-
     fetchComments();
+    
 
   }, [imageSrc, idPost]);
 
 
 
-  console.log("holi: ", idUser);
-  console.log("ruta fotoperfil;: ", fotoPerfil);
 
-  const text = isFollowing ? "Siguiendo" : "Seguir";
-  const buttonClassName = isFollowing
-    ? "tw-followCard-button is-following"
-    : "tw-followCard-button";
 
-  const handleClick = () => {
-    setIsFollowing(!isFollowing);
+  const fetchComments = () => {
+    fetch(`http://localhost:5500/getCommentPost/${idPost}`)
+      .then(response => response.json())
+      .then(data => {
+    
+        console.log("Comentarios recibidos:", data);
+        setComments(data); // Agrega esto para verificar la respuesta
+      })
+      .catch(error => {
+        console.error('Error al obtener datos:', error);
+      });
   };
 
-  const handleLike = () => {
-    setLikes(likes + 1);
-  };
-
-  const handleCommentButtonClick = () => {
-    setShowCommentBox(!showCommentBox);
-  };
-
-  const handleCommentChange = (e) => {
-    setCurrentComment(e.target.value); // Actualiza el comentario actual, no la lista de comentarios
-  };
 
   const handleCommentSubmit = async () => {
-    
-    
-    console.log('Comentario enviado:', comments);
-    console.log('user:', idUser);
 
-    Axios.post("http://localhost:5500/datePost", {
+    await Axios.post("http://localhost:5500/datePost", {
       id_post: idPost,
       id_user: storedUser[0].user,
       comments: currentComment,
+      likes: likes,
     }).then((response) => {
       
     }).catch((error) => {
       
     });
-
     // Puedes limpiar el cuadro de comentarios después de enviarlo si es necesario.
-    setComments('');
-    setCurrentComment('');
+    //setComments('');
+    fetchComments();
+    //setCurrentComment('');
     setShowCommentBox(false);
   };
 
-  
 
+  const handleLike = () => {
+    if (!liked) {
+      setLikes(likes + 1);
+      Axios.post(`http://localhost:5500/like/add/${idPost}`)
+        .then(response => {
+          console.log("likes:", liked);
+        })
+        .catch(error => {
+
+        });
+    } else {
+      setLikes(likes - 1);
+      // Llamada a la API para quitar un like en la base de datos
+      Axios.post(`http://localhost:5500/like/remove/${idPost}`)
+        .then(response => {
+
+        })
+        .catch(error => {
+          console.error("Error al eliminar like de la base de datos:", error);
+        });
+    }
+    setLiked(!liked);
+  };
+
+
+  const handleCommentButtonClick = () => {
+    setShowCommentBox(!showCommentBox);
+  };
+
+  
+  const handleCommentChange = (e) => {
+    setCurrentComment(e.target.value); // Actualiza el comentario actual, no la lista de comentarios
+  };
+
+  const sortedData = comments.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
   return (
     <div className="Posts">
@@ -126,14 +134,7 @@ function Posts({idPost ,idUser, initialIsFollowing, initialLikes, imgPublicacion
               </div>
               <div className="col-2">
                 <div className="d-flex align-items-center justify-content-end">
-                  <aside>
-                    <button className={buttonClassName} onClick={handleClick}>
-                      <span className="tw-followCard-text">{text}</span>
-                      <span className="tw-followCard-stopFollow">
-                        Dejar de seguir
-                      </span>
-                    </button>
-                  </aside>
+                  
                 </div>
               </div>
             </article>
@@ -147,7 +148,19 @@ function Posts({idPost ,idUser, initialIsFollowing, initialLikes, imgPublicacion
 
             <p className="card-text">{textPost}</p>
 
-            <FcBookmark id="likeButton" onClick={handleLike} />
+              {liked ? (
+                <FcDislike
+                  id="likeButton"
+                  onClick={handleLike}
+                  style={{ color: 'red' }}
+                />
+              ) : (
+                <FcLike
+                  id="likeButton"
+                  onClick={handleLike}
+                  style={{ color: 'black' }}
+                />
+              )}
             <span className="badge bg-secondary">{likes}</span>
             
             <FaRegComment id="commentButton" onClick={handleCommentButtonClick}/>
@@ -164,13 +177,15 @@ function Posts({idPost ,idUser, initialIsFollowing, initialLikes, imgPublicacion
               </div>
             )}
            <div className="show-comments">
-        {Array.isArray(comments) && comments.map((comment, index) => (
-          <div key={index} className="comment">
-            <h8 className="h5">{comment.id_user}:</h8>
-            <p className="p">{comment.comments}</p> 
-          </div>
-        ))}
-      </div>
+              <ul>
+                {sortedData.map((comment, index) => (
+                    <div className="comment">
+                      <h8 className="h5">{comment.id_user}:</h8>
+                      <p className="p">{comment.comments}</p> 
+                    </div>
+                ))}
+              </ul>
+            </div>
             
           </div>
         </div>
