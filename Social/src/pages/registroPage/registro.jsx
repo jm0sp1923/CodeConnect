@@ -34,6 +34,7 @@ const registrar = ()=>{
     alert("Error al crear usuario:", error);
   }
 });
+
 }
   
   return (
