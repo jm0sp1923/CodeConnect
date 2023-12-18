@@ -1,14 +1,24 @@
+.login {
+  position: relative;
+  top: -40px;
+  left: 100px;
+  display: flex;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.53);
+  border-radius: 35px;
+  padding: 50px;
+}
 body {
   background-color: #383838;
 }
 
 #columna1,
 #columna3 {
-  z-index: 1;
+  z-index: 10;
 }
 
 #columna2 {
-  z-index: 2;
+  z-index: 10;
 }
 
 h1 {
@@ -17,25 +27,17 @@ h1 {
   font-family: "Montserrat", sans-serif;
 }
 
-.login {
-  position: relative;
-  top: -40px;
-  left: 320px;
-  display: flex;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.53);
-  border-radius: 35px;
-  padding: 65px;
-}
+
 
 .head h1 {
   position: relative;
-  top: -40px;
+  top: -30px;
   font-size: 1.4rem;
 }
 
 .body {
-  font-size: 1rem;
+  font-size: 1.5rem;
+  
 }
 
 .form-control {
@@ -74,7 +76,6 @@ h1 {
   justify-content: space-between;
 }
 
-/* Nuevo estilo para el elemento "CodeConnect" */
 #titulo {
   position: absolute;
   top: 45px;
@@ -92,7 +93,8 @@ h1 {
 }
 
 #Logotype{
- 
+  width: 50px;
+  height: 50px;
   position: absolute;
   top: 40px; 
   left: 150px;
@@ -100,4 +102,112 @@ h1 {
   background-color: transparent; 
 
 }
+
+
+/* Vista de tablet*/
+@media (min-width: 768px) and (max-width: 1024px) {
+  #row{
+    position: relative;
+    top: 0px;
+    display: flex;
+    text-align: left;
+    align-items: center;
+    min-width: 140px;  
+    padding: 1px;
+  }
+  #titulo h2 {
+    color: #fff;
+    text-align: center;
+    font-size: 2.8rem;
+    font-weight: bold;
+    font-family: "Montserrat", sans-serif;
+    margin-top: -50px;
+    margin-left: 175px;
+    
+  }
+ 
+  
+  .login {
+      left: 0px;
+      padding-left:  80px;
+      padding-right:  80px;
+      top: -230px;
+    }
+    #titulo {
+      left: 60px;
+    }
+    #Logotype{
+      width: 50px;
+      height: 50px;
+      top: 1px; 
+      z-index: -1; 
+    }
+    .head h1 {
+      position: relative;
+      top: -5px;
+      font-size: 1.6rem;
+      color: #020202;
+    }
+}
+/* Vista de celular*/
+@media (max-width: 767px) {
+  
+  #row{
+    position: relative;
+    top: 0px;
+    display: flex;
+    text-align: left;
+    align-items: normal;
+    min-width: 120px;  
+    padding: 1px;}
+
+    #sinputs{
+      margin: 0px;
+      padding: 15px;
+      width: 150px;
+      height: 45px;
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+      border-width: 0px;
+      
+    }
+    #loginButton{
+      position: relative;
+      padding: 10px;
+      color: white;
+      border: 5px;
+      background-color:#282c34;
+      border: 0px;
+      font-size: 35px;
+      left: -25px;
+      
+    } 
+  .login {
+   
+    left: 0px;
+    padding-left:  80px;
+    padding-right:  80px;
+  }
+  #titulo {
+    left: 60px;
+  }
+  #Logotype{
+    width: 50px;
+    height: 50px;
+    top: 100px; 
+    left: -35px;
+    z-index: -1; 
+  }
+  .head h1 {
+    position: relative;
+    top: -5px;
+    font-size: 1.6rem;
+    color: #000000;
+  }
+}
+
+
+
+
+
 

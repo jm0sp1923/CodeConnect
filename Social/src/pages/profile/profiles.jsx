@@ -15,22 +15,19 @@ function ProfilePage() {
   });
 
   const editar = () => {
-    axio.put('http://localhost:5500/changeUserInfo',userInfo)
-    .then(response => {
-      alert("Datos actualizados");
-      console.log("Datos actualizados:", response.data);
-    })
-    .catch(error => {
-      alert("Ha ocurrido un error: " + error.message); // Muestra el mensaje de error específico
-      console.error('Error al actualizar los datos del usuario:', error);
-      if (error.response) {
-        console.log("Respuesta del servidor:", error.response.data);
-      }
-    });
+    axio.put('http://localhost:5500/changeUserInfo', userInfo)
+      .then(response => {
+        alert("Datos actualizados");
+        console.log("Datos actualizados:", response.data);
+      })
+      .catch(error => {
+        alert("Ha ocurrido un error: " + error.message);
+        console.error('Error al actualizar los datos del usuario:', error);
+        if (error.response) {
+          console.log("Respuesta del servidor:", error.response.data);
+        }
+      });
   }
-
-
-  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,8 +43,8 @@ function ProfilePage() {
         <Top></Top>
       </header>
       <div className="container mt-4">
-        <div className="row vh-100 align-items-center ">
-          <div className="col-md-8">
+        <div className="row vh-100 align-items-center">
+          <div className="col-8">
             <div className="text-center" id="data">
               <div className="infoData">
                 <p><strong>INFORMACION DE USUARIO:</strong>
@@ -66,21 +63,19 @@ function ProfilePage() {
                   <input type="email" name="email" placeholder="Email" value={userInfo.email} onChange={handleChange} />
                 </p>
               </div>
-              <div className="EditarData" >
+              <div className="EditarData">
                 <button onClick={editar}>
                   Editar
-                  
                 </button>
               </div>
             </div>
           </div>
-          <div className="col-md-4 d-flex justify-content-left">
+          <div className="col-4 d-flex justify-content-left" id="avatary">
             <img className="img-fluid rounded-circle" id='avatar' src={userInfo.avatar} alt="User Avatar" />
           </div>
-             <div className="contenedor">
-             <div className="cuadrado"></div>
+          <div className="contenedor">
+            <div className="cuadrado"></div>
           </div>
-
         </div>
       </div>
     </>
@@ -88,3 +83,4 @@ function ProfilePage() {
 }
 
 export default ProfilePage;
+  

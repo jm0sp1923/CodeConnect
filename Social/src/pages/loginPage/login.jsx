@@ -57,7 +57,7 @@ function LoginPage() {
       <div className="body">
         <div className="vh-100 row align-items-start position-relative">
 
-          
+
           <div className="col vh-100" id="columna2">
             <div className="position-absolute top-50 start-50 translate-middle">
               <div className="row">
@@ -80,7 +80,7 @@ function LoginPage() {
                         />
                       </div>
 
-                      
+
 
                       <div className="form-group">
                         <input
@@ -93,7 +93,7 @@ function LoginPage() {
                           placeholder="Ingrese su contraseña"
                         />
 
-                        
+
                       </div>
 
                       <p>
@@ -113,7 +113,7 @@ function LoginPage() {
                         <a href="/registroPage">¿No tienes cuenta?</a>
                       </p>
                     </form>
-                    
+
                   </div>
                 </div>
               </div>
@@ -122,16 +122,16 @@ function LoginPage() {
 
           <form >
             <div className="col vh-100" id="titulo">
-            <h2>CodeConnect</h2>
-             </div>
-             
-             <div id="Logotype">
-              <img src={Logoprofile}  />
-             </div>
-         </form>
-          
+              <h2>CodeConnect</h2>
+            </div>
+            <div id="Logotype">
+              <img src={Logoprofile} />
+            </div>
+            
+          </form>
 
-           
+
+
 
 
         </div>
