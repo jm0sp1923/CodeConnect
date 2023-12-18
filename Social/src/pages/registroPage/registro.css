@@ -15,7 +15,14 @@
   z-index: 3;
 }
 
+.form-group-register{
+  position: relative;
+  left: 60px;
+}
+
 #head h1 {
+  position: relative;
+  left: 40px;
   color: #fff;
   text-align: center;
   font-size: 2.5rem;
@@ -23,6 +30,18 @@
   font-family: "Montserrat", sans-serif;
   margin-top: -40px;
 }
+
+#btn-registrar {
+  position: relative;
+  width: 40% !important;
+  height: 40px;
+  top: 230px;
+  left: -100px;
+  background-color: #383838;
+  border-color: #383838;
+  border-radius: 5px;
+}
+
 
 #Logotyp {
    

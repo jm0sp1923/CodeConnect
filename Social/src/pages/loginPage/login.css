@@ -27,7 +27,20 @@ h1 {
   font-family: "Montserrat", sans-serif;
 }
 
+<<<<<<< HEAD
 
+=======
+.login {
+  position: relative;
+  top: -40px;
+  left: 100%;
+  display: flex;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.53);
+  border-radius: 35px;
+  padding: 65px;
+}
+>>>>>>> 880777ba56838239417f737a413dd2369dcad8eb
 
 .head h1 {
   position: relative;
@@ -43,6 +56,7 @@ h1 {
 .form-control {
   margin-bottom: 20px;
 }
+
 
 #checkButton {
   border-radius: none !important;
@@ -61,6 +75,7 @@ h1 {
 }
 
 #btn-ingresar {
+
   width: 75% !important;
   background-color: #383838;
   border-color: #383838;
