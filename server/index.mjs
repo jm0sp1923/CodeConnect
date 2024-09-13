@@ -10,15 +10,6 @@ const app = express();
 const upload = multer({ dest: 'imgs/' });
 
 
-//app.use('/imgs', express.static(new URL('imgs', import.meta.url).pathname)); //Obtener URL del modulo y convertirla en ruta de directorio
-
-// const currentModuleFile = new URL(import.meta.url);
-// const currentModuleDir = path.dirname(currentModuleFile.pathname);
-
-// // Configuración para servir archivos estáticos desde la carpeta "imgs"
-// const publicPath = path.resolve(currentModuleDir, 'imgs');
-// app.use('/imgs', express.static(publicPath));
-
 
 app.use(cors());
 app.use(express.json());
@@ -43,19 +34,40 @@ app.post("/registrar", (req, response) => {
   const user = req.body.user;
   const email = req.body.email;
   const contraseña = req.body.contraseña;
-
+  
   db.query(
     "INSERT INTO usuario (user,nombre,edad,email,contraseña) VALUES (?,?,?,?,?)",
     [user, " ", 0, email, contraseña],
     (err, res) => {
       if (err) {
+<<<<<<< HEAD
+        console.log(err);
         response.send(err);
       } else {
+        console.log("Registrado");
+=======
+        response.send(err);
+      } else {
+>>>>>>> 6872894ef5449be8f60efe3c231bf520057f199f
         response.send(true);
       }
     }
   );
 });
+
+//Query para obtener todas las publicaciones de la database
+app.get("/getUser", (req, res) => {
+  const sql = 'SELECT usuario.user FROM usuario';
+  
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.error("Error en la consulta SELECT: " + err);
+      return res.status(500).send("Error en la consulta SELECT");
+    }
+    res.send(result);
+  });
+});
+
 
 //Query para validar informacion del usuario
 app.post("/login", (req, res) => {
@@ -129,9 +141,16 @@ app.post("/savePost", upload.single('image'), (req, res) => {
 
 //Query para obtener todas las publicaciones de la database
 app.get("/getImages", (req, res) => {
+<<<<<<< HEAD
+  const limit = req.query.limit || 12;
+  const sql = 'SELECT * FROM publicaciones ORDER BY createdAt DESC LIMIT ?';
+  const values = [limit];
+  db.query(sql, values, (err, result) => {
+=======
 
   const sql = 'SELECT * FROM publicaciones';
   db.query(sql, (err, result) => {
+>>>>>>> 6872894ef5449be8f60efe3c231bf520057f199f
     if (err) {
       console.error("Error en la consulta SELECT: " + err);
       return res.status(500).send("Error en la consulta SELECT");
@@ -164,10 +183,90 @@ app.get("/images/:imageName", (req, res) => {
 });
 
 
+<<<<<<< HEAD
+app.get("/fotoPerfil", (req, res) => {
+  const {fotoPerfil} = req.body; 
+  const values = [fotoPerfil];
+  const sql = `SELECT usuario.foto_Perfil
+                FROM usuario
+                
+                `;
+  db.query(sql, values, (err, result) => {
+    if (err) {
+      console.error("Error en la consulta SELECT: " + err);
+      return res.status(500).send("Error en la consulta SELECT");
+    }
+    res.send(result);
+  });
+});
+
+//Query para registrar comments 
+app.post("/datePost", async (req, response) => {
+  try {
+    const { id_post, id_user, comments, likes } = req.body;
+    const createdAt = new Date().toISOString();
+    const data = [id_post, id_user, comments, likes, createdAt];
+
+    await db.query(
+      "INSERT INTO datepost (id_post, id_user, comments, likes,  createdAt) VALUES (?,?,?,?,?)",
+      data
+    );
+
+    response.status(200).send("Registrado");
+  } catch (error) {
+    console.error(error);
+    response.status(500).send("Error interno del servidor");
+  }
+});
+
+
+
+//Query para consulta de los ID de las publicaciones
+app.get("/getIdPost", (req, res) => {
+  const {id_post} = req.body; 
+  const values = [id_post];
+  const sql = `SELECT publicaciones.id
+                FROM publicaciones
+                `;
+  db.query(sql, values, (err, result) => {
+    if (err) {
+      console.error("Error en la consulta SELECT: " + err);
+      return res.status(500).send("Error en la consulta SELECT");
+    }
+    res.send(result);
+  });
+});
+
+
+//Query para sacar el comentario y el usuario de los post
+app.get("/getCommentPost/:id_post", (req, res) => {
+  const  {id_post} = req.params;
+  
+  const values = [id_post];
+  const sql = `SELECT datepost.id_user, datepost.comments
+                FROM datepost WHERE id_post =? AND comments IS NOT NULL
+                ORDER BY createdAt DESC 
+                `;
+  db.query(sql, values, (err, result) => {
+    if (err) {
+      console.error("Error en la consulta SELECT: " + err);
+      return res.status(500).send("Error en la consulta SELECT");
+    }
+    res.send(result);
+  });
+});
+
+
+app.post('/like/add/:id_post', (req, res) => {
+  const id_post = req.params;
+  const sql = 'UPDATE datepost SET likes = likes + 1 WHERE id_post = ?';
+  db.query(sql, [id_post], (error, results) => {
+=======
 app.post('/like/add', (req, res) => {
   const postId = req.body.postId;
   const sql = 'UPDATE publicaciones SET likes = likes + 1 WHERE id = ?';
   db.query(sql, [postId], (error, results) => {
+>>>>>>> 6872894ef5449be8f60efe3c231bf520057f199f
     if (error) {
       console.error('Error al agregar like:', error);
       return res.status(500).send('Error al agregar like en la base de datos');
@@ -176,10 +275,17 @@ app.post('/like/add', (req, res) => {
   });
 });
 
+<<<<<<< HEAD
+app.post('/like/remove/:id_post', (req, res) => {
+  const id_post = req.params;
+  const sql = 'UPDATE datepost SET likes = CASE WHEN likes > 0 THEN likes - 1 ELSE 0 END WHERE id_post = ?';
+  db.query(sql, [id_post], (error, results) => {
+=======
 app.post('/like/remove', (req, res) => {
   const postId = req.body.postId;
   const sql = 'UPDATE publicaciones SET likes = CASE WHEN likes > 0 THEN likes - 1 ELSE 0 END WHERE id = ?';
   db.query(sql, [postId], (error, results) => {
+>>>>>>> 6872894ef5449be8f60efe3c231bf520057f199f
     if (error) {
       console.error('Error al quitar like:', error);
       return res.status(500).send('Error al quitar like en la base de datos');
@@ -188,6 +294,11 @@ app.post('/like/remove', (req, res) => {
   });
 });
 
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> 6872894ef5449be8f60efe3c231bf520057f199f
 const puerto = 5500;
 app.listen(puerto, () => {
   console.log(`Server en el puerto ${puerto}`);

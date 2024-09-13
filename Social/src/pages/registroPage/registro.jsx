@@ -4,16 +4,18 @@ import { useState } from "react";
 import "./registro.css";
 import Top from "../../components/top/top";
 import Logo from '../../assets/img/Logo.png';
-
+import { useNavigate } from "react-router-dom";
 
  
 
 function RegistroPage() {
 
-
 const [user,setUser] = useState();
 const [email,setEmail] = useState();
 const [contraseña,setContraseña] = useState();
+
+const navigate = useNavigate();
+
 
 const registrar = ()=>{
   Axios.post("http://localhost:5500/registrar", {
@@ -24,6 +26,7 @@ const registrar = ()=>{
   contraseña: contraseña,
 }).then((response) => {
   alert("Usuario creado");
+  navigate("/login");
 }).catch((error) => {
   if (error.response.status === 409) {
     alert("El usuario ya existe");
@@ -33,13 +36,10 @@ const registrar = ()=>{
 });
 
 }
-
+  
   return (
     <div>
-      <header>
-        <Top>   
-        </Top>
-      </header>
+      
       <div className="body">
       <div className="registro text-center d-flex align-items-center justify-content-center">
         <div className="col vh-100 d-flex flex-column align-items-center">
@@ -53,7 +53,7 @@ const registrar = ()=>{
             </div>
 
             <form>
-              <div className="form-group">
+              <div className="form-group-register">
                 <label htmlFor="user" className="text-left">
                   User
                 </label>
@@ -68,7 +68,7 @@ const registrar = ()=>{
                 />
               </div>
 
-              <div className="form-group">
+              <div className="form-group-register">
                 <label htmlFor="email" className="text-left">
                   Email
                 </label>
@@ -83,7 +83,7 @@ const registrar = ()=>{
                 />
               </div>
 
-              <div className="form-group">
+              <div className="form-group-register">
                 <label htmlFor="contraseña" className="text-left">
                   Contraseña
                 </label>
@@ -99,15 +99,16 @@ const registrar = ()=>{
 
               </div>
 
-              <button
+            </form>
+            <button 
                 onClick={registrar}
-                id="btn-ingresar"
+               
+                id="btn-registrar"
                 type="submit"
                 className="btn btn-primary"
               >
                 Crear Usuario
               </button>
-            </form>
 
             <div className="footer mt-3">
               <div className="icons">

@@ -20,12 +20,11 @@ const AddPost = ({ onImageSelected, onImageSubmit }) => {
 
   const handleSubmit = async () => {
     onImageSubmit(file);
-    // console.log('File:', file);
-    // console.log('Text:', text);
+    addPostInfo();
     const formData = new FormData();
       formData.append('text', text);
       formData.append('image', file);
-      formData.append('id_User', storedUser[0].user)
+      formData.append('id_User', storedUser[0].user);
 
 
       
@@ -41,6 +40,23 @@ const AddPost = ({ onImageSelected, onImageSubmit }) => {
     });
 
   };
+
+
+  const addPostInfo = async ()  => {
+    const formData = new FormData();
+      formData.append('id_post', 176);
+      formData.append('id_User', storedUser[0].user);
+      formData.append('likes', 0);
+      formData.append('comments', null);
+
+    Axios.post('https://localhost:5500/datePost', formData).then((response) => {
+      if (response.status == 200) {
+        console.log('Post enviado y guardado en la base de datos');
+      } else {
+        console.log('Error al enviar el post al servidor');
+      }
+    })
+  }
 
   const pHSearch = "¿Qué estás pensando?";
 
