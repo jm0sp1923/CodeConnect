@@ -12,5 +12,5 @@
 
 ## Tecnologías Utilizadas
 
--Frontend: React, JavaScript, HTML, CSS, Bootstrap.
--Backend: Node.js, MySQL
+- Frontend: React, JavaScript, HTML, CSS, Bootstrap.
+- Backend: Node.js, MySQL
