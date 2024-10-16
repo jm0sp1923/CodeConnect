@@ -1,6 +1,7 @@
 # 🎭 CodeConnect 
 
-**Descripción:** es una red social para desarrolladores, diseñada para conectar a personas apasionadas por el desarrollo de software. Los usuarios pueden compartir sus proyectos, comentar en las publicaciones de otros, y construir un perfil profesional en el que pueden interactuar y aprender mutuamente.
+**Descripción:**
+es una red social para desarrolladores, diseñada para conectar a personas apasionadas por el desarrollo de software. Los usuarios pueden compartir sus proyectos, comentar en las publicaciones de otros, y construir un perfil profesional en el que pueden interactuar y aprender mutuamente.
 
 ## Características
 
