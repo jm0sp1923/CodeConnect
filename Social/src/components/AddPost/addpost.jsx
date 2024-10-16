@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import SendRoundedIcon from '@material-ui/icons/SendRounded';
 import Axios from "axios";
+import { useNavigate } from "react-router-dom";
 import './addpost.css';
 
 const AddPost = ({ onImageSelected, onImageSubmit }) => {

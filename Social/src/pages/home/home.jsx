@@ -6,37 +6,10 @@ import AddPost from "../../components/AddPost/addpost";
 import { useNavigate } from "react-router-dom";
 
 
-<<<<<<< HEAD
-function Home (){
-    const [imageSrc, setImageSrc] = useState(null);
-    const [post, setPost] = useState([]);
-    const [cargando, setCargando] = useState(true);
-    
-
-    
-    const navigate = useNavigate();
-    const storedUser = JSON.parse(localStorage.getItem('userData'));
-    const [userInfo, setUserInfo] = useState(storedUser ? storedUser[0] : null);
-
-    const errorInicioSesion = () => {
-      navigate("/login");
-    }
-
-    useEffect(() => {
-      if (userInfo === null) {
-        alert("Inicie sesión primero");
-        errorInicioSesion();
-      } 
-    }, [userInfo]);
-
-
-
-=======
 function Home() {
   const [imageSrc, setImageSrc] = useState(null);
   const [post, setPost] = useState([]);
   const [cargando, setCargando] = useState(true);
->>>>>>> 6872894ef5449be8f60efe3c231bf520057f199f
 
 
   const navigate = useNavigate();
@@ -122,14 +95,7 @@ function Home() {
       console.log(searchTerm);
     } else {
       fetchAllPosts();
-<<<<<<< HEAD
-      
-      
-      
-    }, []);
-=======
     }
->>>>>>> 6872894ef5449be8f60efe3c231bf520057f199f
 
   };
 
@@ -137,29 +103,6 @@ function Home() {
   const sortedPosts = post.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
 
-<<<<<<< HEAD
-      const topActions = { onSearch: handleSearch };
-      
-
-    return(
-        <div className="Home">
-            <header className="Home-header">
-                <Top actions={topActions}></Top>
-            </header>
-            <div className="Body">
-            <AddPost onImageSelected={handleImageSelected} onImageSubmit={handleImageSubmit}/>
-            {cargando ? <p>Cargando publicaciones...</p> : (
-                <ul>
-                  {sortedPosts.map((posts, index) => (
-                    <Posts idPost={posts.id} idUser={posts.id_User} initialIsFollowing={false} initialLikes={posts.likes} imgPublicacion={posts.imageUrl} textPost={posts.text} ></Posts>
-                    
-                  ))}
-                </ul>
-              )}
-            </div>
-        </div>
-    );
-=======
   const topActions = { onSearch: handleSearch };
 
   
@@ -180,7 +123,6 @@ function Home() {
       </div>
     </div>
   );
->>>>>>> 6872894ef5449be8f60efe3c231bf520057f199f
 }
 
 export default Home;

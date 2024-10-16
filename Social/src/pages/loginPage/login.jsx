@@ -35,105 +35,58 @@ function LoginPage() {
 
   return (
     <div className="LoginPage">
-      <header>
-        <Top></Top>
-      </header>
-
-      {
-        usuarios.map((val, key) => {
-          return <div key={key}>{val.user}</div>
-        })
-      }
-
-      <div>
-        <p>Nombre: {usuarios.nombre}</p>
-        <p>Email: {usuarios.email}</p>
-      </div>
-
-      <div className="body">
-        <div className="vh-100 row align-items-start position-relative">
-
-          
-          <div className="col vh-100" id="columna2">
-            <div className="position-absolute top-50 start-50 translate-middle">
-              <div className="row">
-                <div className="login text-center">
-                  <div className="body">
-                    <div className="head">
-                      <h1>Hola, Bienvenido</h1>
-                    </div>
-
-                    <form>
-                      <div className="form-group">
-                        <input
-                          onChange={(event) => {
-                            setUser(event.target.value);
-                          }}
-                          type="text"
-                          className="form-control"
-                          id="email"
-                          placeholder="Ingrese su usuario"
-                        />
-                      </div>
-
-                      
-
-                      <div className="form-group">
-                        <input
-                          onChange={(event) => {
-                            setContraseña(event.target.value);
-                          }}
-                          type="password"
-                          className="form-control"
-                          id="contraseña"
-                          placeholder="Ingrese su contraseña"
-                        />
-
-                        
-                      </div>
-
-                      <p>
-                        <a href="#">¿Olvidó su contraseña?</a>
-                      </p>
-
-                      <p>
-                        <a href="/registroPage">¿No tienes cuenta?</a>
-                      </p>
-                    </form>
-
-                    <button
-                        id="btn-ingresar"
-                        type="submit"
-                        className="btn btn-primary"
-                        onClick={ingresar}
-                      >
-                        Ingresar
-                      </button> 
-                    
-                  </div>
-                </div>
-              </div>
-            </div>
+      <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+      <div className="container">
+        <div className="glass">
+          {/* Logo */}
+          <div id="Logotype">
+            <img src={Logoprofile} alt="Logo" />
           </div>
-
-          <form >
-            <div className="col vh-100" id="titulo">
-            <h2>CodeConnect</h2>
-             </div>
-             
-             <div id="Logotype">
-              <img src={Logoprofile}  />
-             </div>
-         </form>
-          
-
-           
-
-
+  
+          {/* Title */}
+          <h1>Iniciar Sesión</h1>
+  
+          {/* Form */}
+          <form>
+            <div className="form-group">
+              <input
+                onChange={(event) => setUser(event.target.value)}
+                type="text"
+                className="form-control"
+                id="email"
+                placeholder="Usuario"
+              />
+            </div>
+  
+            <div className="form-group">
+              <input
+                onChange={(event) => setContraseña(event.target.value)}
+                type="password"
+                className="form-control"
+                id="contraseña"
+                placeholder="Contraseña"
+              />
+            </div>
+  
+            <p><a href="#">¿Olvidaste tu contraseña?</a></p>
+            <p><a href="/registroPage">¿No tienes cuenta? Regístrate</a></p>
+  
+            {/* Submit Button */}
+            <button
+              id="btn-ingresar"
+              type="submit"
+              className="btn btn-primary"
+              onClick={ingresar}
+            >
+              Iniciar Sesión
+            </button>
+          </form>
         </div>
       </div>
     </div>
   );
+  
+  
 }
 
 export default LoginPage;
